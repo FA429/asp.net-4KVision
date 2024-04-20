@@ -7,7 +7,7 @@ This repository contains ASP.NET Core application with RESTful API endpoints for
 ## How to work
 
 1. One team member (admin) should fork the repo and add other members to that admin repo as collaborators.
-2. The other team members should clone the forked repo (the admin repo).
+2. The other team members should fork then clone the forked repo (the admin repo).
 3. Any change/update made should be submitted to admin repo as pull request.
 4. Each change should be done in a separate pull request.
 5. Pull request must be reviewed by all members before merged to admin repo.
