@@ -15,7 +15,19 @@ This repository contains ASP.NET Core application with RESTful API endpoints for
 
 Please ask your instructor or supporting instructor if you have any questions or need help.
 
-## Level 1: Basic Requirements
+## Database Requirements
+
+### Level 1: Basic Requirements
+
+For the upcoming database assignment, please design an Entity-Relationship Diagram (ERD) tailored to the project described below.
+
+### Level 2: Additional Requirements
+
+Create the necessary tables, define their respective columns, and provide seed data within pgAdmin.
+
+## Backend project Requirements
+
+### Level 1: Basic Requirements
 
 In this level, the application includes the following features:
 
@@ -27,7 +39,7 @@ In this level, the application includes the following features:
 6. Create basic CRUD operations for each endpoint.
 7. Use authentication and role-based authorization
 
-## Level 2: Additional Requirements
+### Level 2: Additional Requirements
 
 In addition to the basic requirements, the application enhances its functionality with the following features:
 
@@ -35,7 +47,7 @@ In addition to the basic requirements, the application enhances its functionalit
 2. Implement search functionality to allow users to search for specific products based on keywords or specific fields (e.g., by title).
 3. Add validation checks to ensure the data meets certain criteria before executing the actions.
 
-## Level 3: Advanced Requirements
+### Level 3: Advanced Requirements
 
 If you have a higher skill level and finish the previous requirements before the deadline, you can tackle the following bonus tasks:
 
@@ -48,3 +60,7 @@ If you have a higher skill level and finish the previous requirements before the
 `Please note that the bonus requirements and reviews are optional and can be completed if you have additional time and advanced skills.`
 
 Happy coding!
+
+## Deadline
+
+The deadline for the backend project is May 8th End of day (Before the presentation day)
