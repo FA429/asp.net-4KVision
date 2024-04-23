@@ -1,0 +1,191 @@
+CREATE TABLE public.user (
+id UUID NOT NULL PRIMARY KEY,
+role VARCHAR(10),
+name VARCHAR(50),
+password VARCHAR(50),
+email VARCHAR(100) UNIQUE,
+phone NUMERIC
+);
+
+--------------------------------------
+CREATE TABLE customer_order(
+id UUID NOT NULL PRIMARY KEY,
+user_id UUID NOT NULL,
+date DATE DEFAULT CURRENT_DATE,
+CONSTRAINT customer_order_user_id_FK FOREIGN KEY (user_id) REFERENCES public.user(id)
+);
+
+--------------------------------------------
+CREATE TABLE category(
+id UUID NOT NULL PRIMARY KEY,
+type VARCHAR(50)
+);
+-----------------------------------
+CREATE TABLE product(
+id UUID NOT NULL PRIMARY KEY,
+category_id UUID NOT NULL,
+name VARCHAR(100) NOT NULL,
+price INT NOT NULL
+CONSTRAINT product_category_id_FK FOREIGN KEY (category_id) REFERENCES category(id)
+);
+
+-------------------------------------
+
+CREATE TABLE inventory(
+id UUID NOT NULL PRIMARY KEY,
+product_id UUID NOT NULL,
+quantity INT NOT NULL,
+color VARCHAR(50) NOT NULL,
+size VARCHAR(50) NOT NULL,
+CONSTRAINT inventory_product_id_FK FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+--------------------------------------------
+
+CREATE TABLE order_item (
+id UUID NOT NULL PRIMARY KEY,
+inventory_id UUID NOT NULL,
+order_id UUID NOT NULL,
+quantity INT NOT NULL,
+amount NUMERIC(10),
+CONSTRAINT order_item_inventory_id_FK FOREIGN KEY (inventory_id) REFERENCES inventory(id) ,
+CONSTRAINT order_item_order_id_FK FOREIGN KEY (order_id) REFERENCES public.order(id)
+); 
+
+-----------------------------------------
+
+INSERT INTO public.user VALUES
+(
+uuid_generate_v4(),
+'user',
+'Fakhrdeen',
+'ff123',
+'fakhrdeen18@gmail.com',
+'0501121033'
+),
+(
+uuid_generate_v4(),
+'user',
+'Abbas',
+'aa123',
+'abbas22@gmail.com',
+'059613170'
+);
+
+--------------------------------------------
+
+INSERT INTO public.order VALUES 
+(
+uuid_generate_v4(),
+'f253f384-3501-4bd0-abc8-bf8dab3c46cc'
+),
+(
+uuid_generate_v4(),
+'dc11ef25-de44-4785-a647-cd0c14cbc941'
+),
+(
+uuid_generate_v4(),
+'f253f384-3501-4bd0-abc8-bf8dab3c46cc'
+),
+(
+uuid_generate_v4(),
+'dc11ef25-de44-4785-a647-cd0c14cbc941'
+);
+
+----------------------------------------------
+
+INSERT INTO category VALUES 
+(
+uuid_generate_v4(),
+'Phone'
+),
+(
+uuid_generate_v4(),
+'Labtop'
+);
+
+----------------------------------------------
+
+INSERT INTO product VALUES 
+(
+uuid_generate_v4(),
+'247cd487-4821-4092-bff5-dd60a307e1ad',
+'IPHONE 15',
+4900
+),
+(
+uuid_generate_v4(),
+'9d0e39bf-b909-42cb-9b7a-97779b4fc988',
+'MACBOOK',
+7000
+);
+
+--------------------------------------------
+
+INSERT INTO inventory VALUES 
+(
+uuid_generate_v4(),
+'82f750ca-e8ce-44df-ba37-c07cc71acd17',
+5,
+'BLACK',
+'PRO MAX'
+),
+(
+uuid_generate_v4(),
+'82f750ca-e8ce-44df-ba37-c07cc71acd17',
+3,
+'WHITE',
+'PRO MAX'
+),
+(
+uuid_generate_v4(),
+'03b4e109-0ab7-4123-9097-679bd1b53abe',
+7,
+'GOLD',
+'1T'
+);
+
+-----------------------------------------
+
+INSERT INTO order_item VALUES
+(
+uuid_generate_v4(),
+'e3823d03-22b8-47f6-b116-a78774eb6415',
+'ca5b7fe0-49df-4afb-a9dc-47e272c0c112',
+1,
+4900
+),
+(
+uuid_generate_v4(),
+'55d85bee-7aa1-4145-9ecd-2a70ddc631aa',	
+'43f56506-c2f4-4305-b775-3baef944b03a',
+1,
+7000
+),
+(
+uuid_generate_v4(),
+'7cfa138c-6aac-4400-a3bf-5e1b556cc049',
+'fc3dc102-2be0-4bba-b9b8-8f769e28b506',
+1,
+4900	
+),
+(
+uuid_generate_v4(),
+'55d85bee-7aa1-4145-9ecd-2a70ddc631aa',	
+'9cf63faa-ceb2-4366-aa4d-95662908d3ad',
+1,
+7000
+);
+
+--------------------------------------------
+
+SELECT public.user.name ,  product.name , category.type ,
+inventory.color, inventory.size , product.price , order_item.quantity , order_item.amount , public.order.date
+
+FROM order_item
+JOIN public.order ON order_item.order_id = public.order.id
+JOIN public.user ON public.user.id = public.order.user_id
+JOIN inventory ON inventory.id = order_item.inventory_id
+JOIN product ON product.id = inventory.product_id
+JOIN category ON category.id = product.category_id
+order by public.user.name ASC
