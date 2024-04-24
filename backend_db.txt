@@ -8,7 +8,7 @@ phone NUMERIC
 );
 
 --------------------------------------
-CREATE TABLE customer_order(
+CREATE TABLE public.order(
 id UUID NOT NULL PRIMARY KEY,
 user_id UUID NOT NULL,
 date DATE DEFAULT CURRENT_DATE,
