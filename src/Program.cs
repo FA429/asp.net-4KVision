@@ -11,12 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true); 
-builder.Services.AddScoped<IOrderService,OrderServices>();
-builder.Services.AddScoped<IOrderRepository,OrderRepository>();
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+builder.Services.AddScoped<IOrderService, OrderServices>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
+app.MapControllers();
 
 
 // Configure the HTTP request pipeline.
