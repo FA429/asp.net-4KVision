@@ -24,5 +24,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         {
             return _orderItemService.FindOne(orderId);
         }
+
+        [HttpPost]
+        public OrderItem CreateOne([FromBody] OrderItem NewOrderItem)
+        {
+            return _orderItemService.CreateOne(NewOrderItem);
+        }
+
     }
 }

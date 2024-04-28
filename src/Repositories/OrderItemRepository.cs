@@ -13,6 +13,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             _orderItems = new DatabasesContext().Order_Item;
         }
 
+        public OrderItem CreateOne(OrderItem NewOrderItem)
+        {
+            _orderItems.Add(NewOrderItem);
+            return NewOrderItem;
+        }
+
         public List<OrderItem> FindAll()
         {
             return _orderItems;
@@ -20,7 +26,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public OrderItem? FindOne(string orderId)
         {
-            var FindOrderItem = _orderItems.Find((item)=>item.Id == orderId);
+            var FindOrderItem = _orderItems.Find((item) => item.Id == orderId);
             return FindOrderItem;
         }
     }
