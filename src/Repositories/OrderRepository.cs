@@ -14,7 +14,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         private List<Order> _order;
         public OrderRepository()
         {
-            _order = new DatabaseContext().order;
+            _order = new DatabaseContext().Order;
 
         }
 
