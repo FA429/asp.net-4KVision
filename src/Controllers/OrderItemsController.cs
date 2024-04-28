@@ -4,7 +4,7 @@ using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 {
-    public class OrderItemsController : CustomBaseControllerController
+    public class OrderItemsController : CustomBaseController
     {
         private IOrderItemService _orderItemService;
 
@@ -30,6 +30,5 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         {
             return _orderItemService.CreateOne(NewOrderItem);
         }
-
     }
 }

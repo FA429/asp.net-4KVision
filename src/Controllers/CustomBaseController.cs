@@ -4,7 +4,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class CustomBaseControllerController : ControllerBase
+    public class CustomBaseController : ControllerBase
     {
         
     }
