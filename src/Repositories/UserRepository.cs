@@ -39,9 +39,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public User? FindOne(string userId)
         {
-            var FindUser = _users.Find((user) => user.Id == userId);
+            var FindUser = _users.Find(user => user.Id == userId);
             return FindUser;
         }
 
+        public User UpdateOne(User UpdatedUser)
+        {
+            var users = _users.Select(user=>{
+                if(user.Id == UpdatedUser.Id){
+                    return UpdatedUser;
+                }
+                return user;
+            });
+            _users = users.ToList();
+            return UpdatedUser;
+        }
     }
 }

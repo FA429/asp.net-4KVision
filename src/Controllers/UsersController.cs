@@ -29,13 +29,19 @@ public class UsersController : CustomBaseControllerController
     [HttpPost]
     public User CreateOne([FromBody] User user)
     {
-        return _userService.CreateOne(user); 
+        return _userService.CreateOne(user);
     }
 
     [HttpDelete("{userId}")]
     public List<User> DeleteOne(string userId)
     {
         return _userService.DeleteOne(userId);
+    }
+
+    [HttpPatch("{userId}")]
+    public User? UpdateOne(string userId , [FromBody] User user)
+    {
+        return _userService.UpdateOne(userId, user);
     }
 
 
