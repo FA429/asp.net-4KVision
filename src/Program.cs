@@ -13,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 var app = builder.Build();
 app.MapControllers();
