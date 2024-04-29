@@ -4,11 +4,11 @@ using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 {
-    public class OrderItemsController : CustomBaseController
+    public class OrderItemController : CustomBaseController
     {
         private IOrderItemService _orderItemService;
 
-        public OrderItemsController(IOrderItemService orderItemService)
+        public OrderItemController(IOrderItemService orderItemService)
         {
             _orderItemService = orderItemService;
         }
@@ -35,6 +35,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         public OrderItem? DeleteOne(string orderItemId)
         {
             return _orderItemService.DeleteOne(orderItemId);
+        }
+
+        [HttpPatch("{orderItemId}")]
+        public OrderItem? UpdateOne(string orderItemId, [FromBody] OrderItem item)
+        {
+            return _orderItemService.UpdateOne(orderItemId, item);
         }
     }
 }

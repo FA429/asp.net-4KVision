@@ -35,5 +35,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             var FindOrderItem = _orderItems.Find((item) => item.Id == orderId);
             return FindOrderItem;
         }
+
+        public OrderItem? UpdateOne(OrderItem updatedItem)
+        {
+
+            var updatedOrderItems = _orderItems.Select((item)=>{
+                if (item.Id == updatedItem.Id){
+                    return updatedItem;
+                }
+                return item;
+            });
+            _orderItems = updatedOrderItems.ToList();
+            return updatedItem;
+        }
     }
 }

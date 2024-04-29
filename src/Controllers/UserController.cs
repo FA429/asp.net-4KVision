@@ -4,11 +4,11 @@ using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers;
-public class UsersController : CustomBaseController
+public class UserController : CustomBaseController
 {
     private IUserService _userService;
 
-    public UsersController(IUserService userService)
+    public UserController(IUserService userService)
     {
         _userService = userService;
     }
@@ -43,6 +43,4 @@ public class UsersController : CustomBaseController
     {
         return _userService.UpdateOne(userId, user);
     }
-//
-
 }

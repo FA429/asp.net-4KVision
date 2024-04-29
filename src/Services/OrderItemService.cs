@@ -39,5 +39,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             return _orderItemRepository.FindOne(orderItemId);
         }
+
+        public OrderItem? UpdateOne(string orderItemId, OrderItem newValue)
+        {
+            var item = _orderItemRepository.FindOne(orderItemId);
+            if (item!= null)
+            {
+                item.Quantity = newValue.Quantity;
+                item.Total_price = newValue.Total_price;
+                return _orderItemRepository.UpdateOne(item);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
