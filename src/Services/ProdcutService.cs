@@ -44,10 +44,5 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             }
             return null;
         }
-
-        public List<Product> FindAll()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
