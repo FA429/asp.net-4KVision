@@ -1,6 +1,7 @@
 
 
 
+using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
@@ -25,20 +26,26 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public Order? FindOne(string OrderId)
         {
-            var findOrder = _order.FirstOrDefault((order)=> order.Id == OrderId);
+            var findOrder = _order.FirstOrDefault((order) => order.Id == OrderId);
             return findOrder;
 
         }
-        public List<Order> CreateOne([FromBody] Order order)
+        public Order CreateOne([FromBody] Order order)
         {
-            return _order;
+            _order.Add(order);
+            return order;
 
         }
-        public List<Order> DeleteOne(string OrderId)
+        public Order? DeleteOne(string OrderId)
         {
-            return _order;
+
+            var deleteOrder = _order.Find((order) => order.Id == OrderId);
+                _order.Remove(deleteOrder!);
+                return deleteOrder;
+
+            }
+
 
         }
 
     }
-}

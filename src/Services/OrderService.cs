@@ -9,7 +9,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 {
     public class OrderServices : IOrderService
     {
-private IOrderRepository _orderRepository;
+        private IOrderRepository _orderRepository;
 
         public OrderServices(IOrderRepository orderRepository)
         {
@@ -22,22 +22,32 @@ private IOrderRepository _orderRepository;
 
         }
 
-public Order? FindOne(string OrderId)
+        public Order? FindOne(string OrderId)
         {
-            return _orderRepository.FindOne(OrderId);;
+            return _orderRepository.FindOne(OrderId); ;
 
         }
 
-         public List<Order> CreateOne([FromBody] Order order)
+        public Order CreateOne([FromBody] Order order)
         {
-            
-            return _orderRepository.CreateOne(order);;
+
+            return _orderRepository.CreateOne(order);
 
         }
 
-        public List<Order> DeleteOne(string OrderId)
+        public Order? DeleteOne(string OrderId)
         {
-            throw new NotImplementedException();
+            var deleteOrder = _orderRepository.FindOne(OrderId);
+            if (deleteOrder == null)
+            {
+                return null;
+            }
+            else
+            {
+                return _orderRepository.DeleteOne(OrderId);
+            }
+
+
         }
     }
 }

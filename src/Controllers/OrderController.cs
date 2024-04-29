@@ -29,14 +29,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src
         }
 
         [HttpPost]
-        public List<Order> CreateOne([FromBody] Order order)
+        public Order CreateOne([FromBody] Order order)
         {
             return _orderService.CreateOne(order);
 
         }
 
         [HttpDelete("{OrderId}")]
-        public List<Order> DeleteOne(string OrderId)
+        public Order? DeleteOne(string OrderId)
         {
             return _orderService.DeleteOne(OrderId);
 
