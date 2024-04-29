@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Database;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
@@ -24,21 +23,30 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
             _categories.Add(category);
             return category;
         }
-         public Category FindOne(Category newcategory)
+        public Category? FindOne(string categoryId)
         {
-            _categories.FirstOrDefault(category => category.Id == newcategory.Id);
-            return  newcategory;
+            var foundCategory = _categories.FirstOrDefault(category => category.Id == categoryId);
+            return foundCategory;
         }
-           public Category DeleteOne(Category Deletecategory)
+        public Category? DeleteOne(string categoryId)
         {
-            _categories.FirstOrDefault(category => category.Id == Deletecategory.Id);
-            return  Deletecategory;
+            var categoryFound = FindOne(categoryId);
+            _categories.Remove(categoryFound!);
+            return categoryFound;
         }
 
-            public Category UpdateOne(Category Updatecategory)
+        public Category? UpdateOne(Category updateCategory)
         {
-            _categories.FirstOrDefault(category => category.Id == Updatecategory.Id);
-            return  Updatecategory;
+            var categories = _categories.Select(item =>
+            {
+                if (item.Id == updateCategory.Id)
+                {
+                    return updateCategory;
+                }
+                return item;
+            });
+            _categories = categories.ToList();
+            return updateCategory;
         }
     }
 }

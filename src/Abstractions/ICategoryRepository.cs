@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
@@ -10,10 +6,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     {
         public List<Category> FindAll();
         public Category CreateOne(Category category);
-        public Category FindOne(Category newcategory);
-        public Category DeleteOne(Category Deletecategory);
+        public Category? FindOne(string categoryId);
+        public Category? DeleteOne(string categoryId);
 
-        public Category UpdateOne(Category Updatecategory);
+        public Category? UpdateOne(Category updateCategory);
 
     }
 }

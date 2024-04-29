@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using sda_onsite_2_csharp_backend_teamwork.src.Database;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sdaonsite_2_csharp_backend_teamwork.src.Services;
 
@@ -24,15 +23,28 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         }
 
         [HttpPost]
-        public Category CreateOne([FromBody] Category category)
+        public Category? CreateOne([FromBody] Category category)
         {
             return _categoryService.CreateOne(category);
         }
 
-        [HttpDelete]
-        public Category DeleteOne([FromBody] Category category)
+        [HttpGet("{categoryId}")]
+        public Category? FindOne(string categoryId)
         {
-            return _categoryService.DeleteOne(category);
+            return _categoryService.FindOne(categoryId);
+        }
+
+
+        [HttpDelete("{categoryId}")]
+        public Category? DeleteOne([FromRoute] string categoryId)
+        {
+            return _categoryService.DeleteOne(categoryId);
+        }
+
+        [HttpPatch("{categoryId}")]
+        public Category? UpdateOne(string categoryId, [FromBody] Category category)
+        {
+            return _categoryService.UpdateOne(categoryId, category);
         }
     }
 
