@@ -19,6 +19,13 @@ builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
 builder.Services.AddScoped<IProductService,ProdcutService>();
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllers();
+
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IOrderService, OrderServices>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
