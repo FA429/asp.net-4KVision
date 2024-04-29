@@ -19,16 +19,22 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             return _orderItemService.FindAll();
         }
 
-        [HttpGet("{orderId}")]
-        public OrderItem? FindOne(string orderId)
+        [HttpGet("{orderItemId}")]
+        public OrderItem? FindOne(string orderItemId)
         {
-            return _orderItemService.FindOne(orderId);
+            return _orderItemService.FindOne(orderItemId);
         }
 
         [HttpPost]
         public OrderItem CreateOne([FromBody] OrderItem NewOrderItem)
         {
             return _orderItemService.CreateOne(NewOrderItem);
+        }
+
+        [HttpDelete("{orderItemId}")]
+        public OrderItem? DeleteOne(string orderItemId)
+        {
+            return _orderItemService.DeleteOne(orderItemId);
         }
     }
 }

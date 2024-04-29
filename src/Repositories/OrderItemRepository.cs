@@ -19,6 +19,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return NewOrderItem;
         }
 
+        public OrderItem? DeleteOne(string orderItemId)
+        {
+            var deleteItem = FindOne(orderItemId);
+                _orderItems.Remove(deleteItem!);
+                return deleteItem;
+        }
         public List<OrderItem> FindAll()
         {
             return _orderItems;

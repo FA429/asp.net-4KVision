@@ -33,7 +33,7 @@ public class UsersController : CustomBaseController
     }
 
     [HttpDelete("{userId}")]
-    public List<User> DeleteOne(string userId)
+    public User? DeleteOne(string userId)
     {
         return _userService.DeleteOne(userId);
     }
