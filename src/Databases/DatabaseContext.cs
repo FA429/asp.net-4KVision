@@ -19,7 +19,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             ];
 
             Users = [
-            new User("1","user","Abbas","aa123","user23@gmail.com","0569113170"),
+            new User("1","user","Faisal","aa123","user23@gmail.com","0569113170"),
             new User("2","user","Fakhrdeen","ff123","user23@gmail.com","0501121033"),
         ];
             Order_Item = [
@@ -29,5 +29,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new OrderItem("4","1","2","1","7000"),
         ];
         }
+        
     }
 }
