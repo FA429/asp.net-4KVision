@@ -45,7 +45,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             return _productService.DeleteOne(productId);
         }
 
-        [HttpPatch("{productId}")]
+        [HttpPatch("{product}")]
         public Product? UpdateOne(string ProductId, [FromBody] Product product)
         {
 
