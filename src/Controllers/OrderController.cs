@@ -36,7 +36,7 @@ private IOrderService _orderService;
         }
 
         [HttpPost]
-        public List<Order> CreateOne([FromBody] Order order)
+        public Order CreateOne([FromBody] Order order)
         {
             return _orderService.CreateOne(order);
 

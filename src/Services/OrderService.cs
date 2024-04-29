@@ -28,16 +28,21 @@ public Order? FindOne(string OrderId)
 
         }
 
-         public List<Order> CreateOne([FromBody] Order order)
+         public Order CreateOne([FromBody] Order order)
         {
             
-            return _orderRepository.CreateOne(order);;
+            return _orderRepository.CreateOne(order);
 
         }
 
         public List<Order> DeleteOne(string OrderId)
         {
-            throw new NotImplementedException();
+
+            return _orderRepository.DeleteOne(OrderId);
+
         }
+
+    
     }
+
 }
