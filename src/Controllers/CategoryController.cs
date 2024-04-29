@@ -24,7 +24,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         }
 
         [HttpPost]
-        public List<Category> CreateOne([FromBody] Category category)
+        public Category CreateOne([FromBody] Category category)
         {
             return _categoryService.CreateOne(category);
         }

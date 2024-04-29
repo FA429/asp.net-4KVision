@@ -19,7 +19,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
             _categoryRepository = categoryRepository;
         }
 
-        public List<Category> CreateOne(Category category)
+        public Category CreateOne(Category category)
         {
             return _categoryRepository.CreateOne(category);
         }
@@ -31,3 +31,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
 
     }
 }
+
+//FindOne 
+//DeleteOne
+//UpdateOne
