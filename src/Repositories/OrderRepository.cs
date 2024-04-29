@@ -36,18 +36,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return order;
 
         }
-        public List<Order> DeleteOne(string OrderId)
+        public Order? DeleteOne(string OrderId)
         {
 
             var deleteOrder = _order.Find((order) => order.Id == OrderId);
-            if (deleteOrder == null)
-            {
-                throw new InvalidOperationException();
-            }
-            else
-            {
-                _order.Remove(deleteOrder);
-                return _order;
+                _order.Remove(deleteOrder!);
+                return deleteOrder;
 
             }
 
@@ -55,4 +49,3 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
 
     }
-}

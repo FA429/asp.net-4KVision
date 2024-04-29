@@ -14,7 +14,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src
 {
     public class OrderController : BaseController
     {
-private IOrderService _orderService;
+        private IOrderService _orderService;
 
         public OrderController(IOrderService orderService)
         {
@@ -43,7 +43,8 @@ private IOrderService _orderService;
         }
 
         [HttpDelete("{OrderId}")]
-        public List<Order> DeleteOne(string OrderId){
+        public Order? DeleteOne(string OrderId)
+        {
             return _orderService.DeleteOne(OrderId);
 
         }
