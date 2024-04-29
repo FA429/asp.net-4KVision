@@ -24,7 +24,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             return _productService.FindAll();
         }
 
-        [HttpGet("{ProductId}")] //Action methods GET with Route attributes
+        [HttpGet("{productId}")] //Action methods GET with Route attributes
         public Product? FindOne(string productId)
         {
 
@@ -34,16 +34,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpPost]
         public Product CreateOne([FromBody] Product product)
         {
+            Console.WriteLine($"controller {product.Name}");
 
-            return _productService.CreateOne(product);
+            return product;
         }
-        [HttpDelete("{ProductId}")]
-        public List<Product> DeleteOne(string ProductId)
+
+        [HttpDelete("{productId}")]
+        public Product? DeleteOne(string productId)
         {
-            return _productService.DeleteOne(ProductId);
+            return _productService.DeleteOne(productId);
         }
 
-        [HttpPatch("{ProductId}")]
+        [HttpPatch("{productId}")]
         public Product? UpdateOne(string ProductId, [FromBody] Product product)
         {
 

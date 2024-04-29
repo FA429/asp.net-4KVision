@@ -7,40 +7,32 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     public class ProductRepository : IProductRepository
     {
         private List<Product> _products;
-
         public ProductRepository()
         {
             _products = new DatabaseContext().Products;
         }
         public Product CreateOne(Product product)
         {
-            _products.Add(product);
+            Console.WriteLine($"repo {product.Name}");
 
+            _products.Add(product);
             return product;
         }
 
-        public List<Product> DeleteOne(string productId)
+        public Product? DeleteOne(string productId)
         {
-            var deleteProduct = _products.Find((product) => product.Id == productId);
-            if (deleteProduct != null)
-            {
-                _products.Remove(deleteProduct);
-                return _products;
-            }
-            else
-            {
-                throw new Exception("Product not found");
-            }
+            var deleteProduct = FindOne(productId);
+
+            _products.Remove(deleteProduct!);
+
+            return deleteProduct;
         }
 
-        public List<Product> Findall()
-        {
-            return _products;
-        }
+
 
         public List<Product> FindAll()
         {
-            throw new NotImplementedException();
+            return _products;
         }
 
 

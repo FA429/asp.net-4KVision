@@ -16,13 +16,24 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         }
         public Product CreateOne(Product product)
         {
+            Console.WriteLine($"service {product.Name}");
 
             return _prodcutRepository.CreateOne(product);
         }
 
-        public List<Product> DeleteOne(string productId)
+        public Product? DeleteOne(string productId)
         {
-            return _prodcutRepository.DeleteOne(productId);
+
+            var deleteProduct = _prodcutRepository.FindOne(productId);
+            if (deleteProduct != null)
+            {
+                return _prodcutRepository.DeleteOne(productId);
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
 
