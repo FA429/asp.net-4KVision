@@ -17,9 +17,17 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return _userRepository.CreateOne(user);
         }
 
-        public List<User> DeleteOne(string userId)
+        public User? DeleteOne(string userId)
         {
+            var deleteUser = _userRepository.FindOne(userId);
+            if (deleteUser == null)
+            {
+                return null;
+            }
+            else
+            {
             return _userRepository.DeleteOne(userId);
+            }
         }
 
         public List<User> FindAll()
@@ -34,7 +42,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         public User? UpdateOne(string userId, User newValue)
         {
             var user = _userRepository.FindOne(userId);
-            if (user != null){
+            if (user != null)
+            {
                 user.Name = newValue.Name;
                 return _userRepository.UpdateOne(user);
             }
