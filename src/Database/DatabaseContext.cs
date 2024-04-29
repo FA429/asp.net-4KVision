@@ -8,6 +8,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
     {
         public List<Order> Order { get; set; }
         public List<User> Users { get; set; }
+        public List<Category> categories { get; set; }
         public List<OrderItem> Order_Item { get; set; }
 
 
@@ -28,7 +29,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new OrderItem("3","4","1","1","4900"),
             new OrderItem("4","1","2","1","7000"),
         ];
+
+            categories = [
+            new Category("1", "phones"),
+            new Category("2", "clothes"),
+            new Category("3", "shoes")
+        ];
         }
-        
+
     }
 }
