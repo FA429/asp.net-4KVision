@@ -19,11 +19,11 @@ Please ask your instructor or supporting instructor if you have any questions or
 
 ### Level 1: Basic Requirements
 
-For the upcoming database assignment, please design an Entity-Relationship Diagram (ERD) tailored to the project described below.
+[x] For the upcoming database assignment, please design an Entity-Relationship Diagram (ERD) tailored to the project described below.
 
 ### Level 2: Additional Requirements
 
-Create the necessary tables, define their respective columns, and provide seed data within pgAdmin.
+[x] Create the necessary tables, define their respective columns, and provide seed data within pgAdmin.
 
 ## Backend project Requirements
 
@@ -31,11 +31,11 @@ Create the necessary tables, define their respective columns, and provide seed d
 
 In this level, the application includes the following features:
 
-1. Identify Entities: Identify the main entities that need to be stored in the database. These could include customers, products, categories, orders, etc.
-2. Define Attributes: For each entity, list and define the attributes or properties associated with it. For example, for a "customer" entity, attributes might include "id," "firstName," "lastName," "email" and so on.
-3. Establish Relationships: Determine the relationships between entities. Relationships can be one-to-one, one-to-many, or many-to-many. For instance, in an E-commerce system, a "customer" may have multiple "orders".
-4. Key: When establishing relationships, remember to create a key in your ERD to explain the notation used for relationships.
-5. According to the ERD above, create the entities, and build the database with Entity Framework Core.
+1. [x] Identify Entities: Identify the main entities that need to be stored in the database. These could include customers, products, categories, orders, etc.
+2. [x] Define Attributes: For each entity, list and define the attributes or properties associated with it. For example, for a "customer" entity, attributes might include "id," "firstName," "lastName," "email" and so on.
+3. [x] Establish Relationships: Determine the relationships between entities. Relationships can be one-to-one, one-to-many, or many-to-many. For instance, in an E-commerce system, a "customer" may have multiple "orders".
+4. [x] Key: When establishing relationships, remember to create a key in your ERD to explain the notation used for relationships.
+5. [x] According to the ERD above, create the entities, and build the database with Entity Framework Core.
 6. Create basic CRUD operations for each endpoint.
 7. Use authentication and role-based authorization
 
