@@ -1,4 +1,4 @@
-using sda_onsite_2_csharp_backend_teamwork.src.Database;
+using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
 
@@ -10,7 +10,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         private List<Category> _categories;
         public CategoryRepository()
         {
-            _categories = new DatabasesContext().categories;
+            _categories = new DatabaseContext().categories;
         }
 
         public List<Category> FindAll()
