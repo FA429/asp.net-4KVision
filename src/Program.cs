@@ -19,21 +19,14 @@ builder.Services.AddControllers();
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<IUserRepository,UserRepository>();
-builder.Services.AddScoped<IProductRepository,ProductRepository>();
-builder.Services.AddScoped<IProductService,ProdcutService>();
-builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddControllers();
-
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IOrderService, OrderServices>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
@@ -41,7 +34,7 @@ var app = builder.Build();
 app.MapControllers();
 
 
-app.MapControllers(); 
+app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

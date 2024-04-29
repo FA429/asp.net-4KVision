@@ -3,59 +3,45 @@ using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 {
-    public class ProdcutService : IProductService
+    public class ProductService : IProductService
     {
-
-        private IProductRepository _prodcutRepository;
-
-        public ProdcutService(IProductRepository productRepository)
+        private IProductRepository _productRepository;
+        public ProductService(IProductRepository productRepository)
         {
-
-            _prodcutRepository = productRepository;
-
+            _productRepository = productRepository;
         }
         public Product CreateOne(Product product)
         {
-            
-
-            return _prodcutRepository.CreateOne(product);
+            return _productRepository.CreateOne(product);
         }
-
         public Product? DeleteOne(string productId)
         {
-
-            var deleteProduct = _prodcutRepository.FindOne(productId);
+            var deleteProduct = _productRepository.FindOne(productId);
             if (deleteProduct != null)
             {
-                return _prodcutRepository.DeleteOne(productId);
+                return _productRepository.DeleteOne(productId);
             }
             else
             {
                 return null;
             }
-
         }
-
-
         public List<Product> FindAll()
         {
-            return _prodcutRepository.FindAll();
+            return _productRepository.FindAll();
         }
-
         public Product? FindOne(string productId)
         {
-            return _prodcutRepository.FindOne(productId);
+            return _productRepository.FindOne(productId);
         }
-
-        public Product? UpdateOne(string productId, Product newproduct)
+        public Product? UpdateOne(string productId, Product newProduct)
         {
-            var product = _prodcutRepository.FindOne(productId);
+            var product = _productRepository.FindOne(productId);
             if (product != null)
             {
-                product.Name = newproduct.Name;
-                return _prodcutRepository.UpdateOne(product);
+                product.Name = newProduct.Name;
+                return _productRepository.UpdateOne(product);
             }
-
             return null;
         }
     }
