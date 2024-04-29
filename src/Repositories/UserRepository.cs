@@ -18,18 +18,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return user;
         }
 
-        public List<User> DeleteOne(string userId)
+        public User? DeleteOne(string userId)
         {
-            var deleteUser = _users.Find((user) => user.Id == userId);
-            if (deleteUser == null)
-            {
-                throw new InvalidOperationException();
-            }
-            else
-            {
-                _users.Remove(deleteUser);
-                return _users;
-            }
+            var deleteUser = FindOne(userId);
+                _users.Remove(deleteUser!);
+                return deleteUser; 
         }
 
         public List<User> FindAll()
