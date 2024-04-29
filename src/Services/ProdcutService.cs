@@ -16,7 +16,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         }
         public Product CreateOne(Product product)
         {
-            Console.WriteLine($"service {product.Name}");
+            
 
             return _prodcutRepository.CreateOne(product);
         }

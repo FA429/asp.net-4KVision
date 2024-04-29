@@ -12,7 +12,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
         public Product CreateOne(Product product)
         {
-            Console.WriteLine($"repo {product.Name}");
 
             _products.Add(product);
             return product;
