@@ -10,7 +10,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public OrderItemRepository()
         {
-            _orderItems = new DatabasesContext().Order_Item;
+            _orderItems = new DatabaseContext().Order_Item;
         }
 
         public OrderItem CreateOne(OrderItem NewOrderItem)
