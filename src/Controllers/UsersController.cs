@@ -4,7 +4,7 @@ using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers;
-public class UsersController : CustomBaseControllerController
+public class UsersController : CustomBaseController
 {
     private IUserService _userService;
 

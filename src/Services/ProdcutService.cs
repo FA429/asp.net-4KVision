@@ -5,10 +5,47 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 {
     public class ProdcutService : IProductService
     {
-        public List<Product> FindAll()
+
+        private IProductRepository _prodcutRepository;
+
+        public ProdcutService(IProductRepository productRepository)
         {
-            throw new NotImplementedException();
+
+            _prodcutRepository = productRepository;
+
+        }
+        public Product CreateOne(Product product)
+        {
+
+            return _prodcutRepository.CreateOne(product);
         }
 
+        public List<Product> DeleteOne(string productId)
+        {
+            return _prodcutRepository.DeleteOne(productId);
+        }
+
+
+        public List<Product> FindAll()
+        {
+            return _prodcutRepository.FindAll();
+        }
+
+        public Product? FindOne(string productId)
+        {
+            return _prodcutRepository.FindOne(productId);
+        }
+
+        public Product? UpdateOne(string productId, Product newproduct)
+        {
+            var product = _prodcutRepository.FindOne(productId);
+            if (product != null)
+            {
+                product.Name = newproduct.Name;
+                return _prodcutRepository.UpdateOne(product);
+            }
+
+            return null;
+        }
     }
 }
