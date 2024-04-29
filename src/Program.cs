@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-// Open PR
-using sda_onsite_2_csharp_backend_teamwork.src.Controller;
-using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
-using sdaonsite_2_csharp_backend_teamwork.src.Services;
-=======
 
 
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
+using sda_onsite_2_csharp_backend_teamwork.src.Controller;
 using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
 using sda_onsite_2_csharp_backend_teamwork.src.Services;
->>>>>>> 674f432a72a71ce129bd0998af2147be602390f7
+using sdaonsite_2_csharp_backend_teamwork.src.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

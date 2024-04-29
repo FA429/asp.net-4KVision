@@ -24,5 +24,21 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
             _categories.Add(category);
             return category;
         }
+         public Category FindOne(Category newcategory)
+        {
+            _categories.FirstOrDefault(category => category.Id == newcategory.Id);
+            return  newcategory;
+        }
+           public Category DeleteOne(Category Deletecategory)
+        {
+            _categories.FirstOrDefault(category => category.Id == Deletecategory.Id);
+            return  Deletecategory;
+        }
+
+            public Category UpdateOne(Category Updatecategory)
+        {
+            _categories.FirstOrDefault(category => category.Id == Updatecategory.Id);
+            return  Updatecategory;
+        }
     }
 }

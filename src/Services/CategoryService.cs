@@ -29,9 +29,21 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
             return _categoryRepository.FindAll();
         }
 
+        public Category FindOne(Category newcategory)
+        {
+          return _categoryRepository.FindOne(newcategory);
+        }
+          public Category DeleteOne(Category Deletecategory)
+        {
+          return _categoryRepository.FindOne(Deletecategory);
+        }
+            public Category UpdateOne(Category Updatecategory)
+        {
+          return _categoryRepository.FindOne(Updatecategory);
+        }
     }
 }
 
-//FindOne 
-//DeleteOne
+//FindOne  =
+//DeleteOne =
 //UpdateOne
