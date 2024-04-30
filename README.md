@@ -36,7 +36,7 @@ In this level, the application includes the following features:
 3. [x] Establish Relationships: Determine the relationships between entities. Relationships can be one-to-one, one-to-many, or many-to-many. For instance, in an E-commerce system, a "customer" may have multiple "orders".
 4. [x] Key: When establishing relationships, remember to create a key in your ERD to explain the notation used for relationships.
 5. [x] According to the ERD above, create the entities, and build the database with Entity Framework Core.
-6. Create basic CRUD operations for each endpoint.
+6. [x] Create basic CRUD operations for each endpoint.
 7. Use authentication and role-based authorization
 
 ### Level 2: Additional Requirements
