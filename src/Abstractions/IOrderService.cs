@@ -10,7 +10,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
         public List<Order> FindAll();
         public Order? FindOne(string OrderId);
         public Order CreateOne([FromBody] Order order);
-        public Order? DeleteOne(String OrderId);
+        public Order? DeleteOne(string OrderId);
 
     }
 }
