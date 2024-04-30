@@ -1,4 +1,6 @@
+using AutoMapper;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services
@@ -6,10 +8,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     public class UserService : IUserService
     {
         private IUserRepository _userRepository;
+        private IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public User CreateOne(User user)
@@ -26,18 +30,23 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             }
             else
             {
-            return _userRepository.DeleteOne(userId);
+                return _userRepository.DeleteOne(userId);
             }
         }
 
-        public List<User> FindAll()
+        public List<UserReadDto> FindAll()
         {
-            return _userRepository.FindAll();
+            var users = _userRepository.FindAll();
+            var usersRead = users.Select(user => _mapper.Map<UserReadDto>(user));
+            return usersRead.ToList();
+
         }
 
-        public User? FindOne(string userId)
+        public UserReadDto? FindOne(string userId)
         {
-            return _userRepository.FindOne(userId);
+            User? user = _userRepository.FindOne(userId);
+            UserReadDto? userRead = _mapper.Map<UserReadDto>(user);
+            return userRead;
         }
         public User? UpdateOne(string userId, User newValue)
         {
