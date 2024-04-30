@@ -13,35 +13,24 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
         public Product CreateOne(Product product)
         {
-            Console.WriteLine($"repo {product.Name}");
-
             _products.Add(product);
             return product;
         }
-
         public Product? DeleteOne(string productId)
         {
             var deleteProduct = FindOne(productId);
-
             _products.Remove(deleteProduct!);
-
             return deleteProduct;
         }
-
-
-
         public List<Product> FindAll()
         {
             return _products;
         }
-
-
         public Product? FindOne(string productId)
         {
             var findProduct = _products.Find(product => product.Id == productId);
             return findProduct;
         }
-
         public Product UpdateOne(Product UpdateProduct)
         {
             var product = _products.Select(product =>
@@ -52,7 +41,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
                 }
                 return product;
             });
-
             _products = product.ToList();
             return UpdateProduct;
         }
