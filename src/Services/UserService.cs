@@ -41,6 +41,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             }
         }
 
+        // Add mapper to Get Users
         public List<UserReadDto> FindAll()
         {
             var users = _userRepository.FindAll();
@@ -49,6 +50,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
+        // Add mapper to Get User by Id
         public UserReadDto? FindOne(string userId)
         {
             User? user = _userRepository.FindOne(userId);

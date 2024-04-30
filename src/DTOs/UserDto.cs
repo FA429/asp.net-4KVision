@@ -1,5 +1,6 @@
 namespace sda_onsite_2_csharp_backend_teamwork.src.DTOs
 {
+    //Add UserReadDto
     public class UserReadDto
     {
         public string Id { get; set; }
