@@ -19,11 +19,11 @@ Please ask your instructor or supporting instructor if you have any questions or
 
 ### Level 1: Basic Requirements
 
-[x] For the upcoming database assignment, please design an Entity-Relationship Diagram (ERD) tailored to the project described below.
+* [x] For the upcoming database assignment, please design an Entity-Relationship Diagram (ERD) tailored to the project described below.
 
 ### Level 2: Additional Requirements
 
-[x] Create the necessary tables, define their respective columns, and provide seed data within pgAdmin.
+* [x] Create the necessary tables, define their respective columns, and provide seed data within pgAdmin.
 
 ## Backend project Requirements
 
@@ -43,17 +43,17 @@ In this level, the application includes the following features:
 
 In addition to the basic requirements, the application enhances its functionality with the following features:
 
-1. Include pagination functionality to the method getting all products.
-2. Implement search functionality to allow users to search for specific products based on keywords or specific fields (e.g., by title).
-3. Add validation checks to ensure the data meets certain criteria before executing the actions.
+1. [ ] Include pagination functionality to the method getting all products.
+2. [ ] Implement search functionality to allow users to search for specific products based on keywords or specific fields (e.g., by title).
+3. [ ] Add validation checks to ensure the data meets certain criteria before executing the actions.
 
 ### Level 3: Advanced Requirements
 
 If you have a higher skill level and finish the previous requirements before the deadline, you can tackle the following bonus tasks:
 
-1. Refactor method getting all books or products to also handle query parameters for filtering and sorting products based on specific criteria (e.g., price range, by title, by date, etc). Pagination still need to be integrated.
-2. Use claim-based or resource-based where applicable.
-3. Peer Review:
+1. [ ] Refactor method getting all books or products to also handle query parameters for filtering and sorting products based on specific criteria (e.g., price range, by title, by date, etc). Pagination still need to be integrated.
+2. [ ] Use claim-based or resource-based where applicable.
+3. [ ] Peer Review:
    - Review 2 assignments from other teams.
    - Provide constructive feedback and suggestions for improvement.
 
