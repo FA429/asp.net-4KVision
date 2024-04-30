@@ -45,11 +45,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             return _productService.DeleteOne(productId);
         }
 
-        [HttpPatch("{product}")]
-        public Product? UpdateOne(string ProductId, [FromBody] Product product)
+        [HttpPatch("{productId}")]
+        public Product? UpdateOne(string productId, [FromBody] Product product)
         {
 
-            return _productService.UpdateOne(ProductId, product);
+            return _productService.UpdateOne(productId, product);
         }
     }
 }
