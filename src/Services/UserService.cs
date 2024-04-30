@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
@@ -17,7 +18,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return _userRepository.CreateOne(user);
         }
 
-        public User? DeleteOne(string userId)
+        public User? DeleteOne(Guid userId)
         {
             var deleteUser = _userRepository.FindOne(userId);
             if (deleteUser == null)
@@ -30,16 +31,16 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             }
         }
 
-        public List<User> FindAll()
+        public DbSet<User> FindAll()
         {
             return _userRepository.FindAll();
         }
 
-        public User? FindOne(string userId)
+        public User? FindOne(Guid userId)
         {
             return _userRepository.FindOne(userId);
         }
-        public User? UpdateOne(string userId, User newValue)
+        public User? UpdateOne(Guid userId, User newValue)
         {
             var user = _userRepository.FindOne(userId);
             if (user != null)

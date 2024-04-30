@@ -1,6 +1,7 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
@@ -16,13 +17,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _orderRepository = orderRepository;
         }
 
-        public List<Order> FindAll()
+        public DbSet<Order> FindAll()
         {
             return _orderRepository.FindAll();
 
         }
 
-        public Order? FindOne(string OrderId)
+        public Order? FindOne(Guid OrderId)
         {
             return _orderRepository.FindOne(OrderId); ;
 
@@ -35,7 +36,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
-        public Order? DeleteOne(string OrderId)
+        public Order? DeleteOne(Guid OrderId)
         {
             var deleteOrder = _orderRepository.FindOne(OrderId);
             if (deleteOrder == null)

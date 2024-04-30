@@ -16,7 +16,7 @@ public class UserController : CustomBaseController
         return _userService.FindAll();
     }
     [HttpGet("{userId}")]
-    public User? FindOne(string userId)
+    public User? FindOne(Guid userId)
     {
         return _userService.FindOne(userId);
     }
@@ -26,12 +26,12 @@ public class UserController : CustomBaseController
         return _userService.CreateOne(user);
     }
     [HttpDelete("{userId}")]
-    public User? DeleteOne(string userId)
+    public User? DeleteOne(Guid userId)
     {
         return _userService.DeleteOne(userId);
     }
     [HttpPatch("{userId}")]
-    public User? UpdateOne(string userId, [FromBody] User user)
+    public User? UpdateOne(Guid userId, [FromBody] User user)
     {
         return _userService.UpdateOne(userId, user);
     }

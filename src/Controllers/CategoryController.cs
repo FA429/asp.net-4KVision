@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Controllers;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sdaonsite_2_csharp_backend_teamwork.src.Services;
@@ -17,7 +18,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
 
         [HttpGet]
 
-        public List<Category> FindAll()
+        public DbSet<Category> FindAll()
 
         {
             return _categoryService.FindAll();
@@ -30,20 +31,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         }
 
         [HttpGet("{categoryId}")]
-        public Category? FindOne(string categoryId)
+        public Category? FindOne([FromRoute] Guid categoryId)
         {
             return _categoryService.FindOne(categoryId);
         }
 
 
         [HttpDelete("{categoryId}")]
-        public Category? DeleteOne([FromRoute] string categoryId)
+        public Category? DeleteOne([FromRoute] Guid categoryId)
         {
             return _categoryService.DeleteOne(categoryId);
         }
 
         [HttpPatch("{categoryId}")]
-        public Category? UpdateOne(string categoryId, [FromBody] Category category)
+        public Category? UpdateOne([FromRoute] Guid categoryId, [FromBody] Category category)
         {
             return _categoryService.UpdateOne(categoryId, category);
         }
