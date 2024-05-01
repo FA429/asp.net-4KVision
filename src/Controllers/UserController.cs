@@ -17,22 +17,21 @@ public class UserController : CustomBaseController
     {
         return _userService.FindAll();
     }
-    
+
     // Add mapper to Get User by Id
     [HttpGet("{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<UserReadDto?> FindOne(string userId)
+    public ActionResult<UserReadDto?> FindOne(Guid userId)
     {
         return Ok(_userService.FindOne(userId));
     }
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<User> CreateOne([FromBody] User user)
+    public ActionResult<UserReadDto> CreateOne([FromBody] UserCreateDto user)
     {
         if (user != null)
         {
-
             var createdUser = _userService.CreateOne(user);
             return CreatedAtAction(nameof(CreateOne), createdUser);
         }
@@ -40,14 +39,23 @@ public class UserController : CustomBaseController
     }
     [HttpDelete("{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public ActionResult<User?> DeleteOne(string userId)
+    public ActionResult<UserReadDto?> DeleteOne(Guid userId)
     {
-        NoContent();
-        return _userService.DeleteOne(userId);
+        var deleteUser = _userService.FindOne(userId);
+        if (deleteUser != null)
+        {
+
+            return Ok(_userService.DeleteOne(userId));
+        }
+        else
+        {
+
+            return NoContent();
+        }
     }
     [HttpPatch("{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<User?> UpdateOne(string userId, [FromBody] User user)
+    public ActionResult<User?> UpdateOne(Guid userId, [FromBody] User user)
     {
         return Ok(_userService.UpdateOne(userId, user));
     }
