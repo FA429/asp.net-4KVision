@@ -25,23 +25,31 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         }
 
         [HttpGet("{productId}")] //Action methods GET with Route attributes
-        public Product? FindOne(string productId)
-        {
-
-            return _productService.FindOne(productId);
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<Product?> FindOne(string productId)
+        {   
+            return Ok(_productService.FindOne(productId));
         }
 
         [HttpPost]
-        public Product CreateOne([FromBody] Product product)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] // documentation error status code
+        public ActionResult<Product> CreateOne([FromBody] Product product)
         {
-            Console.WriteLine($"controller {product.Name}");
+            if (product is not null)
+            {
+                var createProduct = _productService.CreateOne(product);
+                return CreatedAtAction(nameof(CreateOne), createProduct);
+            }
 
-            return product;
+            return BadRequest();
         }
 
         [HttpDelete("{productId}")]
-        public Product? DeleteOne(string productId)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]// documentation error status code
+        public ActionResult<Product?> DeleteOne(string productId)
         {
+            NoContent();
             return _productService.DeleteOne(productId);
         }
         [HttpPatch("{productId}")]

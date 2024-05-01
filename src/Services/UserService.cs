@@ -22,7 +22,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public User CreateOne(User user)
         {
-            byte[] pepper = Encoding.UTF8.GetBytes(_config["Pass:Pepper"]!);
+            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
             PasswordUtils.HashPassword(user.Password, out string hashedPassword, pepper);
             user.Password = hashedPassword;
             return _userRepository.CreateOne(user);
