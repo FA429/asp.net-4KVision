@@ -8,9 +8,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
     {
 
         private List<Category> _categories;
-        public CategoryRepository()
+        public CategoryRepository(DatabaseContext databaseContext)
         {
-            _categories = new DatabaseContext().categories;
+            _categories = databaseContext.categories;
         }
 
         public List<Category> FindAll()

@@ -20,15 +20,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _mapper = mapper;
         }
 
-        public User CreateOne(User user)
+        public UserReadDto CreateOne(UserCreateDto user)
         {
-            byte[] pepper = Encoding.UTF8.GetBytes(_config["Pass:Pepper"]!);
+            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
             PasswordUtils.HashPassword(user.Password, out string hashedPassword, pepper);
             user.Password = hashedPassword;
-            return _userRepository.CreateOne(user);
+            User mappedUser = _mapper.Map<User>(user);
+            User newUser = _userRepository.CreateOne(mappedUser);
+            UserReadDto ReaderUser = _mapper.Map<UserReadDto>(newUser);
+            return ReaderUser;
         }
 
-        public User? DeleteOne(string userId)
+        public UserReadDto? DeleteOne(Guid userId)
         {
             var deleteUser = _userRepository.FindOne(userId);
             if (deleteUser == null)
@@ -36,12 +39,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 return null;
             }
             else
-            {
-                return _userRepository.DeleteOne(userId);
+            { 
+
+                var deletedUser = _userRepository.DeleteOne(userId);
+                var ReaderUser = _mapper.Map<UserReadDto>(deletedUser);
+                return ReaderUser;
             }
         }
 
-        // Add mapper to Get Users
         public List<UserReadDto> FindAll()
         {
             var users = _userRepository.FindAll();
@@ -50,14 +55,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
-        // Add mapper to Get User by Id
-        public UserReadDto? FindOne(string userId)
+        public UserReadDto? FindOne(Guid userId)
         {
             User? user = _userRepository.FindOne(userId);
             UserReadDto? userRead = _mapper.Map<UserReadDto>(user);
             return userRead;
         }
-        public User? UpdateOne(string userId, User newValue)
+
+        public User? UpdateOne(Guid userId, User newValue)
         {
             var user = _userRepository.FindOne(userId);
             if (user != null)
