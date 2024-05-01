@@ -12,9 +12,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _orderItemRepository = orderItemRepository;
         }
 
-        public OrderItem CreateOne(OrderItem NewOrderItem)
+        public OrderItem? CreateOne(OrderItem newOrderItem)
         {
-            return _orderItemRepository.CreateOne(NewOrderItem);
+            var findItem = _orderItemRepository.FindOne(newOrderItem.Id);
+            if (findItem == null)
+            return _orderItemRepository.CreateOne(newOrderItem);
+            else
+            return null;
         }
 
         public OrderItem? DeleteOne(string orderItemId)

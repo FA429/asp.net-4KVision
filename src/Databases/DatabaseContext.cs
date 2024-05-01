@@ -24,7 +24,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new User("2","user","Fakhrdeen","ff123","user23@gmail.com","0501121033"),
         ];
             Products = [
-                new Product("1","23","Iphone", "2000"),
+            new Product("1","23","Iphone", "2000"),
             new Product("2","24","MacBook", "5000"),
         ];
             Order_Item = [
@@ -34,11 +34,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new OrderItem("4","1","2","1","7000"),
         ];
             categories = [
-                new Category("1", "phones"),
+            new Category("1", "phones"),
             new Category("2", "clothes"),
             new Category("3", "shoes")
                 ];
         }
-        
+
     }
 }
