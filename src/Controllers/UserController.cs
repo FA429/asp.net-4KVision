@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers;
@@ -10,29 +11,44 @@ public class UserController : CustomBaseController
     {
         _userService = userService;
     }
+    // Add mapper to Get Users
     [HttpGet]
-    public List<User> FindAll()
+    public List<UserReadDto> FindAll()
     {
         return _userService.FindAll();
     }
+    
+    // Add mapper to Get User by Id
     [HttpGet("{userId}")]
-    public User? FindOne(string userId)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<UserReadDto?> FindOne(string userId)
     {
-        return _userService.FindOne(userId);
+        return Ok(_userService.FindOne(userId));
     }
     [HttpPost]
-    public User CreateOne([FromBody] User user)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public ActionResult<User> CreateOne([FromBody] User user)
     {
-        return _userService.CreateOne(user);
+        if (user != null)
+        {
+
+            var createdUser = _userService.CreateOne(user);
+            return CreatedAtAction(nameof(CreateOne), createdUser);
+        }
+        return BadRequest();
     }
     [HttpDelete("{userId}")]
-    public User? DeleteOne(string userId)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public ActionResult<User?> DeleteOne(string userId)
     {
+        NoContent();
         return _userService.DeleteOne(userId);
     }
     [HttpPatch("{userId}")]
-    public User? UpdateOne(string userId, [FromBody] User user)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<User?> UpdateOne(string userId, [FromBody] User user)
     {
-        return _userService.UpdateOne(userId, user);
+        return Ok(_userService.UpdateOne(userId, user));
     }
 }
