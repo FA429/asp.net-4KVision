@@ -22,6 +22,37 @@ namespace Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("Inventory_id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("inventory_id");
+
+                    b.Property<Guid>("Order_id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_id");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("quantity");
+
+                    b.Property<string>("Total_price")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("total_price");
+
+                    b.HasKey("Id")
+                        .HasName("pk_order_items");
+
+                    b.ToTable("order_items", (string)null);
+                });
+
             modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
