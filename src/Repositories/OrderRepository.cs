@@ -12,13 +12,15 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     {
 
         private DbSet<Order> _order;
-        private List<CheckoutDto> _CheckoutDto;
         private DatabaseContext _db;
+        private DbSet<OrderItem> _orderItems;
 
         public OrderRepository(DatabaseContext databaseContext)
         {
             _order = databaseContext.Orders;
             _db = databaseContext;
+            _orderItems=databaseContext.OrderItems;
+
         }
 
         public IEnumerable<Order> FindAll()
@@ -32,19 +34,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return findOrder;
 
         }
-        public CheckoutDto CreateOne([FromBody] List<CheckoutDto>  CheckoutDto)
+        public OrderItem CreateOne(OrderItem orderItem)
         {
-            foreach (var item in CheckoutDto)
-            {
-                
+          
             
-            _CheckoutDto.Add(item);
+            _orderItems.Add(orderItem);
             _db.SaveChanges();
-            return item;
+            return orderItem;
 
-            
-            
-            }
         }
         // public Order? DeleteOne(Guid orderId)
         // {

@@ -35,19 +35,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<CheckoutDto> CreateOne([FromBody] List<CheckoutDto> checkedoutOItems)
+        public ActionResult<CheckoutDto> CreateOne([FromBody] List<CheckoutDto> checkedDtOItems)
         {
             /*
             1. create order
             2. loop thro the checkedoutOItems and create OrderItem
             3. done.
             */
-            foreach (var item in checkedoutOItems)
+
+            foreach (var item in checkedDtOItems)
             {
                 Console.WriteLine($"{item.InventoryId}");
             }
 
-            if (checkedoutOItems != null)
+            if (checkedDtOItems != null)
             {
 
                 // var createdOrder = _orderService.CreateOne(order);

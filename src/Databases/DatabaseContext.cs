@@ -9,10 +9,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
         public List<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public List<CheckoutDto>? CheckoutDtos { get; internal set; }
-
-        public List<Category> categories;
         private IConfiguration _config;
 
         public DatabaseContext(IConfiguration config)
@@ -24,11 +22,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new Product("1","23","Iphone", "2000"),
             new Product("2","24","MacBook", "5000"),
         ];
-            categories = [
-            new Category("1", "phones"),
-            new Category("2", "clothes"),
-            new Category("3", "shoes")
-                ];
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
