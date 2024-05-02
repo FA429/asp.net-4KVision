@@ -18,9 +18,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly); // Find the mapper who inherited  from Profile(It built in class in .NET)
 
+builder.Services.AddDbContext<DatabaseContext>();
+
 builder.Services.AddControllers();
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

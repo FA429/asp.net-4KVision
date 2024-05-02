@@ -7,9 +7,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
     {
         // change the type from user to UserReadDto
         public List<UserReadDto> FindAll();
-        public UserReadDto? FindOne(string userId);
-        public User CreateOne(User user);
-        public User? DeleteOne(string userId);
-        public User? UpdateOne(string userId, User user);
+        public UserReadDto? FindOne(Guid userId);
+        public UserReadDto CreateOne(UserCreateDto user);
+        public UserReadDto? DeleteOne(Guid userId);
+        public User? UpdateOne(Guid userId, User user);
     }
 }
