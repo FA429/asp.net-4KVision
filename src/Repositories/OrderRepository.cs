@@ -12,8 +12,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         private DbSet<Order> _order;
         private DatabaseContext _db;
-        
-        public OrderRepository(DatabaseContext databaseContext )
+
+        public OrderRepository(DatabaseContext databaseContext)
         {
             _order = databaseContext.Orders;
             _db = databaseContext;
@@ -33,7 +33,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         public Order CreateOne([FromBody] Order order)
         {
             _order.Add(order);
-                        _db.SaveChanges();
+            _db.SaveChanges();
 
             return order;
 
@@ -46,16 +46,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         //         return deleteOrder;
 
         //     }
-               public Order? DeleteOne(Guid orderId)
+        public Order? DeleteOne(Guid orderId)
         {
             var deleteOrder = FindOne(orderId);
             _order.Remove(deleteOrder!);
+            _db.SaveChanges();
+
             return deleteOrder;
         }
 
 
 
-        }
-
     }
+
+}
 

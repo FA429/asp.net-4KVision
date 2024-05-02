@@ -11,10 +11,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     public class OrderServices : IOrderService
     {
         private IOrderRepository _orderRepository;
+                private IConfiguration _config;
 
-        public OrderServices(IOrderRepository orderRepository)
+
+        public OrderServices(IOrderRepository orderRepository, IConfiguration config)
         {
             _orderRepository = orderRepository;
+                        _config = config;
+
         }
 
         public IEnumerable<Order> FindAll()

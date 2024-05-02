@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
@@ -6,45 +7,51 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private List<User> _users;
-        public UserRepository()
+        private DbSet<User> _users;
+        private DatabaseContext _databaseContext;
+        public UserRepository(DatabaseContext databaseContext)
         {
-            _users = new DatabaseContext().Users;
+            _users = databaseContext.Users;
+            _databaseContext = databaseContext;
         }
 
         public User CreateOne(User user)
         {
             _users.Add(user);
+            _databaseContext.SaveChanges();
             return user;
         }
 
-        public User? DeleteOne(string userId)
+        public User? DeleteOne(Guid userId)
         {
             var deleteUser = FindOne(userId);
-                _users.Remove(deleteUser!);
-                return deleteUser; 
+            _users.Remove(deleteUser!);
+            _databaseContext.SaveChanges();
+            return deleteUser;
         }
 
-        public List<User> FindAll()
+        public IEnumerable<User> FindAll()
         {
             return _users;
         }
 
-        public User? FindOne(string userId)
+        public User? FindOne(Guid userId)
         {
-            var FindUser = _users.Find(user => user.Id == userId);
-            return FindUser;
+            var FindUser = _users.Find(userId);
+            return FindUser;    
         }
 
         public User UpdateOne(User UpdatedUser)
         {
-            var users = _users.Select(user=>{
-                if(user.Id == UpdatedUser.Id){
-                    return UpdatedUser;
-                }
-                return user;
-            });
-            _users = users.ToList();
+            // var users = _users.Select(user =>
+            // {
+            //     if (user.Id == UpdatedUser.Id)
+            //     {
+            //         return UpdatedUser;
+            //     }
+            //     return user;
+            // });
+            // _users = users.ToList();
             return UpdatedUser;
         }
     }

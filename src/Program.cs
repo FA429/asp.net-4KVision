@@ -16,10 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

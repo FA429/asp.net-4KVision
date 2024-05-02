@@ -8,9 +8,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     public class ProductRepository : IProductRepository
     {
         private List<Product> _products;
-        public ProductRepository()
+        public ProductRepository(DatabaseContext databaseContext)
         {
-            _products = new DatabaseContext().Products;
+            _products = databaseContext.Products;
         }
         public Product CreateOne(Product product)
         {
