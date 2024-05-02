@@ -29,20 +29,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
         public Product? FindOne(string productId)
         {
-            var findProduct = _products.Find(product => product.Id == productId);
+            var findProduct = _products.Find(productId);
             return findProduct;
         }
         public Product UpdateOne(Product UpdateProduct)
         {
-            var product = _products.Select(product =>
-            {
-                if (product.Id == UpdateProduct.Id)
-                {
-                    return UpdateProduct;
-                }
-                return product;
-            });
-            _products = product.ToList();
+            
             return UpdateProduct;
         }
     }

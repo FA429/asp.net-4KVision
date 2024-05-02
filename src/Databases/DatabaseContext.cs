@@ -15,6 +15,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
-        => optionsBuilder.UseNpgsql (@"Host= nameof server;Username=admin;Password=mypass;DatabaseName=jkdsakl");
+        => optionsBuilder.UseNpgsql (@"Host= nameofserver;Username=admin;Password=mypass;DatabaseName=jkdsakl");
     }
 }
