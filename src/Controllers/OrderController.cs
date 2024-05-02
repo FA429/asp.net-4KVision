@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Controllers;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src
@@ -34,14 +35,23 @@ namespace sda_onsite_2_csharp_backend_teamwork.src
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Order> CreateOne([FromBody] Order order)
+        public ActionResult<CheckoutDto> CreateOne([FromBody] List<CheckoutDto> checkedoutOItems)
         {
+            /*
+            1. create order
+            2. loop thro the checkedoutOItems and create OrderItem
+            3. done.
+            */
+            foreach (var item in checkedoutOItems)
+            {
+                Console.WriteLine($"{item.InventoryId}");
+            }
 
-            if (order != null)
+            if (checkedoutOItems != null)
             {
 
-                var createdOrder = _orderService.CreateOne(order);
-                return CreatedAtAction(nameof(CreateOne), createdOrder);
+                // var createdOrder = _orderService.CreateOne(order);
+                // return CreatedAtAction(nameof(CreateOne), createdOrder);
             }
 
             return BadRequest();

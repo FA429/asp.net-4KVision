@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
@@ -9,6 +10,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public DbSet<User> Users { get; set; }
         public List<Product> Products { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public List<CheckoutDto>? CheckoutDtos { get; internal set; }
+
         public List<Category> categories;
         private IConfiguration _config;
 
