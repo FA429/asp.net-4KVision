@@ -10,7 +10,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public List<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
         public List<Product> Products { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public List<Category> categories;
         private IConfiguration _config;
 
@@ -26,12 +26,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             Products = [
             new Product("1","23","Iphone", "2000"),
             new Product("2","24","MacBook", "5000"),
-        ];
-            OrderItems = [
-            new OrderItem("1","2","2","1","4900"),
-            new OrderItem("2","3","1","1","7000"),
-            new OrderItem("3","4","1","1","4900"),
-            new OrderItem("4","1","2","1","7000"),
         ];
             categories = [
             new Category("1", "phones"),
