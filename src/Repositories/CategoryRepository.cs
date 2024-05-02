@@ -42,6 +42,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         public Category? FindOne(Guid categoryId)
         {
             var findCategory = _categories.Find(categoryId);
+            if(findCategory == null) 
+            {
+                return null; 
+            }
             return findCategory;
         }
 
