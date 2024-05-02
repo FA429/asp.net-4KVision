@@ -8,6 +8,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     public class ProductRepository : IProductRepository
     {
         private DbSet<Product> _products;
+
         public ProductRepository(DatabaseContext databaseContext)
         {
             _products = databaseContext.Products;
@@ -17,7 +18,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             _products.Add(product);
             return product;
         }
-        public Product? DeleteOne(string productId)
+        public Product? DeleteOne(Guid productId)
         {
             var deleteProduct = FindOne(productId);
             _products.Remove(deleteProduct!);
@@ -27,14 +28,24 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         {
             return _products;
         }
-        public Product? FindOne(string productId)
+        public Product? FindOne(Guid productId)
         {
             var findProduct = _products.Find(productId);
             return findProduct;
         }
         public Product UpdateOne(Product UpdateProduct)
         {
-            
+        //     var product = _products.Select(product =>
+        //    {
+        //        if (product.Id == UpdateProduct.Id)
+        //        {
+        //            return UpdateProduct;
+        //        }
+        //        return product;
+        //    });
+        //     _products = product.ToList()
+
+
             return UpdateProduct;
         }
     }

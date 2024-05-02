@@ -70,8 +70,8 @@ The deadline for the backend project is May 8th End of day (Before the presentat
     - Inherited from Db context in our databaseContext ✅
     - Change the type to DbSet in the db context✅
     - Add a Connection string to the database
-    - we fixed the repository typing
-    - injected databaseContext class via the Program file
+    - we fixed the repository typing✅
+    - injected databaseContext class via the Program file✅
     - updated the Product entity
     - run migrations and updating (at this point you should have the pgAdmin)
 '

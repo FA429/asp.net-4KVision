@@ -1,3 +1,4 @@
+using AutoMapper;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
@@ -6,15 +7,19 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     public class ProductService : IProductService
     {
         private IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private IConfiguration _config;
+        private IMapper _mapper;
+        public ProductService(IProductRepository productRepository, IConfiguration config , IMapper mapper)
         {
             _productRepository = productRepository;
+            _config = config;
+            _mapper =mapper;
         }
         public Product CreateOne(Product product)
         {
             return _productRepository.CreateOne(product);
         }
-        public Product? DeleteOne(string productId)
+        public Product? DeleteOne(Guid productId)
         {
             var deleteProduct = _productRepository.FindOne(productId);
             if (deleteProduct != null)
@@ -26,15 +31,15 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 return null;
             }
         }
-        public List<Product> FindAll()
+        public IEnumerable<Product> FindAll()
         {
             return _productRepository.FindAll();
         }
-        public Product? FindOne(string productId)
+        public Product? FindOne(Guid productId)
         {
             return _productRepository.FindOne(productId);
         }
-        public Product? UpdateOne(string productId, Product newProduct)
+        public Product? UpdateOne(Guid productId, Product newProduct)
         {
             var product = _productRepository.FindOne(productId);
             if (product != null)
