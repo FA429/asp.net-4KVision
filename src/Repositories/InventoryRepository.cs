@@ -38,5 +38,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             var findInventory = _inventories.Find((item)=>item.Id == inventoryId);
             return findInventory;
         }
+
+        public Inventory? UpdateOne(Inventory newInventory)
+        {
+            var inventories = _inventories.Select(inventory => {
+                if(inventory.Id == newInventory.Id)
+                return newInventory;
+                else{
+                    return inventory;
+                }
+            });
+            _inventories = inventories.ToList();
+            return newInventory;
+        }
     }
 }

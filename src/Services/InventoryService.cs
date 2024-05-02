@@ -33,5 +33,15 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             return _inventoryRepository.FindOne(inventoryId);
         }
+
+        public Inventory? UpdateOne(string inventoryId, Inventory newInventory)
+        {
+            var findInventory = _inventoryRepository.FindOne(inventoryId);
+            if(findInventory == null) return null;
+            findInventory.Quantity = newInventory.Quantity;
+            findInventory.Color = newInventory.Color;
+            findInventory.Size = newInventory.Size;
+            return _inventoryRepository.UpdateOne(findInventory);
+        }
     }
 }

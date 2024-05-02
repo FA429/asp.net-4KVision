@@ -9,5 +9,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
         public Inventory? FindOne(string inventoryId);
         public Inventory? CreateOne(Inventory newInventory);
         public Inventory? DeleteOne(string inventoryId);
+        public Inventory? UpdateOne(string inventoryId, Inventory newInventory);
     }
 }
