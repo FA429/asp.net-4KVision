@@ -5,7 +5,7 @@ using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
 {
     // Add mapper class
-    public class Mapper: Profile
+    public class Mapper : Profile
     {
         public Mapper()
         {
@@ -17,9 +17,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
 
             CreateMap<OrderItemCreateDto, OrderItem>();
             CreateMap<OrderItem, OrderItemCreateDto>();
-            
-            CreateMap<ProductCreateDto, Product>();
-            CreateMap<Product, ProductCreateDto>();
         }
     }
 }
