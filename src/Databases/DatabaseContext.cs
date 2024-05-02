@@ -1,5 +1,3 @@
-
-
 using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
@@ -7,7 +5,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 {
     public class DatabaseContext : DbContext
     {
-        public List<Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
         public List<Product> Products { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -17,10 +15,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public DatabaseContext(IConfiguration config)
         {
             _config = config;
-            Orders = [
-                new Order ("1","11"),
-                new Order ("2","22"),
-            ];
 
 
             Products = [

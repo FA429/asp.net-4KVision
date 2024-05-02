@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddControllers();
-
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 

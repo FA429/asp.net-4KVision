@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class dbinti : Migration
+    public partial class dbinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,19 @@ namespace Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_order_items", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_orders", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,6 +61,9 @@ namespace Backend.Migrations
         {
             migrationBuilder.DropTable(
                 name: "order_items");
+
+            migrationBuilder.DropTable(
+                name: "orders");
 
             migrationBuilder.DropTable(
                 name: "users");
