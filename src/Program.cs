@@ -33,12 +33,11 @@ builder.Services.AddScoped<IOrderService, OrderServices>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IInventoryService,InventoryService>();
+builder.Services.AddScoped<IInventoryRepository,InventoryRepository>();
+
 
 var app = builder.Build();
-app.MapControllers();
-
-
-app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -30,7 +30,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public Order? FindOne(Guid OrderId)
         {
-            var findOrder = _order.FirstOrDefault((order) => order.Id == OrderId);
+            var findOrder = _order.Find(OrderId);
             return findOrder;
 
         }
