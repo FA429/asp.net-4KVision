@@ -4,3 +4,4 @@ bin
 obj
 *.http
 appsettings.json
+README.md
