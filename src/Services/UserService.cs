@@ -39,7 +39,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 return null;
             }
             else
-            { 
+            {
 
                 var deletedUser = _userRepository.DeleteOne(userId);
                 var readerUser = _mapper.Map<UserReadDto>(deletedUser);

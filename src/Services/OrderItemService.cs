@@ -28,7 +28,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             var deleteItem = _orderItemRepository.FindOne(orderItemId);
             if (deleteItem != null)
             {
-             return _orderItemRepository.DeleteOne(orderItemId);
+                return _orderItemRepository.DeleteOne(orderItemId);
             }
             else
             {
@@ -39,8 +39,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         public List<OrderItem> FindAll()
         {
 
-             var orderItems = _orderItemRepository.FindAll();
-             return orderItems.ToList();
+            var orderItems = _orderItemRepository.FindAll();
+            return orderItems.ToList();
         }
 
         public OrderItem? FindOne(Guid orderItemId)
