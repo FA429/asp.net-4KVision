@@ -21,7 +21,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly); // Find the mapper who
 builder.Services.AddDbContext<DatabaseContext>();// inject the database context 
 
 builder.Services.AddControllers();
-
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 

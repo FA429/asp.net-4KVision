@@ -4,14 +4,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
-        private IConfiguration _config;
+        public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
-        public List<Order> Orders { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
-        public List<Category> categories;
-
-
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        private IConfiguration _config;
 
         public DatabaseContext(IConfiguration config)
         {

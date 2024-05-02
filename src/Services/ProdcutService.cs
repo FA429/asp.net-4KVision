@@ -1,6 +1,7 @@
 using AutoMapper;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 {
@@ -15,9 +16,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _config = config;
             _mapper =mapper;
         }
-        public Product CreateOne(Product product)
+        public Product? CreateOne(ProductCreateDto product)
         {
-            return _productRepository.CreateOne(product);
+            var mappedOrderItem = _mapper.Map<Product>(product);
+            var newProduct = _productRepository.CreateOne(mappedOrderItem);
+            return newProduct;
         }
         public Product? DeleteOne(Guid productId)
         {

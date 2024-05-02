@@ -12,6 +12,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
             CreateMap<User, UserReadDto>(); // map it shape from user entity to user DTO
             CreateMap<UserReadDto, User>();
             CreateMap<UserCreateDto, User>();
+            CreateMap<CategoryCreateDto, Category>();
+            CreateMap<Category, CategoryCreateDto>();
+
+            CreateMap<OrderItemCreateDto, OrderItem>();
+            CreateMap<OrderItem, OrderItemCreateDto>();
+            
+            CreateMap<ProductCreateDto, Product>();
+            CreateMap<Product, ProductCreateDto>();
         }
     }
 }
