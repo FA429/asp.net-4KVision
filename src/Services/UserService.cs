@@ -27,8 +27,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             user.Password = hashedPassword;
             User mappedUser = _mapper.Map<User>(user);
             User newUser = _userRepository.CreateOne(mappedUser);
-            UserReadDto ReaderUser = _mapper.Map<UserReadDto>(newUser);
-            return ReaderUser;
+            UserReadDto readerUser = _mapper.Map<UserReadDto>(newUser);
+            return readerUser;
         }
 
         public UserReadDto? DeleteOne(Guid userId)
@@ -42,8 +42,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             { 
 
                 var deletedUser = _userRepository.DeleteOne(userId);
-                var ReaderUser = _mapper.Map<UserReadDto>(deletedUser);
-                return ReaderUser;
+                var readerUser = _mapper.Map<UserReadDto>(deletedUser);
+                return readerUser;
             }
         }
 

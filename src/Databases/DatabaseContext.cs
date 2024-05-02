@@ -11,6 +11,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public DbSet<User> Users { get; set; }
         public List<Product> Products { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public List<Inventory> Inventories { get; set; }
         public List<Category> categories;
         private IConfiguration _config;
 
@@ -31,6 +32,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new Category("1", "phones"),
             new Category("2", "clothes"),
             new Category("3", "shoes")
+                ];
+            Inventories = [
+            new Inventory("1","1","1","large", "phones"),
+            new Inventory("2","1","1","large", "clothes"),
+            new Inventory("3","1","1","large", "shoes")
                 ];
         }
 
