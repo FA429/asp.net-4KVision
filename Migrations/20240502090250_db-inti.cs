@@ -12,6 +12,18 @@ namespace Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "categories",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    type = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_categories", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -31,6 +43,9 @@ namespace Backend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "categories");
+
             migrationBuilder.DropTable(
                 name: "users");
         }

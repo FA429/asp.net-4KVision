@@ -22,6 +22,24 @@ namespace Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_categories");
+
+                    b.ToTable("categories", (string)null);
+                });
+
             modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
