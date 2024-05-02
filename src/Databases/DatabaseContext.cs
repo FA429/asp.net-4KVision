@@ -34,9 +34,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new Category("3", "shoes")
                 ];
             Inventories = [
-            new Inventory("1","1","1","large", "phones"),
-            new Inventory("2","1","1","large", "clothes"),
-            new Inventory("3","1","1","large", "shoes")
+            new Inventory("1","1","large", "phones"),
+            new Inventory("1","1","large", "clothes"),
+            new Inventory("1","1","large", "shoes")
                 ];
         }
 

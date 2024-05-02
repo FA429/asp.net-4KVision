@@ -21,7 +21,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return newInventory;
         }
 
-        public Inventory? DeleteOne(string inventoryId)
+        public Inventory? DeleteOne(Guid inventoryId)
         {
             var deletedInventory = FindOne(inventoryId);
             _inventories.Remove(deletedInventory!);
@@ -33,7 +33,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return _inventories;
         }
 
-        public Inventory? FindOne(string inventoryId)
+        public Inventory? FindOne(Guid inventoryId)
         {
             var findInventory = _inventories.Find((item)=>item.Id == inventoryId);
             return findInventory;

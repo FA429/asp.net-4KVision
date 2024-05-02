@@ -1,4 +1,6 @@
+using AutoMapper;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services
@@ -6,18 +8,22 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     public class InventoryService : IInventoryService
     {
         private IInventoryRepository _inventoryRepository;
+        private IMapper _mapper;
 
-        public InventoryService(IInventoryRepository inventoryRepository)
+        public InventoryService(IInventoryRepository inventoryRepository, IMapper mapper)
         {
             _inventoryRepository = inventoryRepository;
+            _mapper = mapper;
         }
 
-        public Inventory? CreateOne(Inventory newInventory)
+        public Inventory? CreateOne(InventoryCreateDto newInventory)
         {
-            return _inventoryRepository.CreateOne(newInventory);
+            var mapperInventory = _mapper.Map<Inventory>(newInventory);
+            var inventory=_inventoryRepository.CreateOne(mapperInventory);
+            return inventory;
         }
 
-        public Inventory? DeleteOne(string inventoryId)
+        public Inventory? DeleteOne(Guid inventoryId)
         {
             var findInventory = _inventoryRepository.FindOne(inventoryId);
             if(findInventory == null) return null;
@@ -29,12 +35,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return _inventoryRepository.FindAll().ToList();
         }
 
-        public Inventory? FindOne(string inventoryId)
+        public Inventory? FindOne(Guid inventoryId)
         {
             return _inventoryRepository.FindOne(inventoryId);
         }
 
-        public Inventory? UpdateOne(string inventoryId, Inventory newInventory)
+        public Inventory? UpdateOne(Guid inventoryId, Inventory newInventory)
         {
             var findInventory = _inventoryRepository.FindOne(inventoryId);
             if(findInventory == null) return null;
