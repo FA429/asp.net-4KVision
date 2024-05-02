@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
@@ -20,25 +21,25 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         }
 
         [HttpGet("{orderItemId}")]
-        public OrderItem? FindOne(string orderItemId)
+        public OrderItem? FindOne(Guid orderItemId)
         {
             return _orderItemService.FindOne(orderItemId);
         }
 
         [HttpPost]
-        public OrderItem? CreateOne([FromBody] OrderItem NewOrderItem)
+        public OrderItem? CreateOne([FromBody] OrderItemCreateDto NewOrderItem)
         {
             return _orderItemService.CreateOne(NewOrderItem);
         }
 
         [HttpDelete("{orderItemId}")]
-        public OrderItem? DeleteOne(string orderItemId)
+        public OrderItem? DeleteOne(Guid orderItemId)
         {
             return _orderItemService.DeleteOne(orderItemId);
         }
 
         [HttpPatch("{orderItemId}")]
-        public OrderItem? UpdateOne(string orderItemId, [FromBody] OrderItem item)
+        public OrderItem? UpdateOne(Guid orderItemId, [FromBody] OrderItem item)
         {
             return _orderItemService.UpdateOne(orderItemId, item);
         }
