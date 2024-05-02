@@ -33,12 +33,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         public IEnumerable<User> FindAll()
         {
             return _users;
+            
         }
 
         public User? FindOne(Guid userId)
         {
-            var FindUser = _users.Find(userId);
-            return FindUser;    
+            var findUser = _users.Find(userId);
+            return findUser;    
         }
 
         public User UpdateOne(User UpdatedUser)

@@ -10,6 +10,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public List<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
         private IConfiguration _config;
 
         public DatabaseContext(IConfiguration config)
@@ -21,7 +22,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
             new Product("1","23","Iphone", "2000"),
             new Product("2","24","MacBook", "5000"),
         ];
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

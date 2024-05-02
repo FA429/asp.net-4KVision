@@ -18,7 +18,6 @@ public class UserController : CustomBaseController
         return _userService.FindAll();
     }
 
-    // Add mapper to Get User by Id
     [HttpGet("{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<UserReadDto?> FindOne(Guid userId)
