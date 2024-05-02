@@ -18,14 +18,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public Inventory? CreateOne(InventoryCreateDto newInventory)
         {
-            var mapperInventory = _mapper.Map<Inventory>(newInventory);
-            var inventory=_inventoryRepository.CreateOne(mapperInventory);
+            Inventory? mapperInventory = _mapper.Map<Inventory>(newInventory);
+            Inventory? inventory =_inventoryRepository.CreateOne(mapperInventory);
             return inventory;
         }
 
         public Inventory? DeleteOne(Guid inventoryId)
         {
-            var findInventory = _inventoryRepository.FindOne(inventoryId);
+            Inventory? findInventory = _inventoryRepository.FindOne(inventoryId);
             if(findInventory == null) return null;
             return _inventoryRepository.DeleteOne(inventoryId);
         }
@@ -37,16 +37,19 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public Inventory? FindOne(Guid inventoryId)
         {
+            List<Inventory> inventories = _inventoryRepository.FindAll().ToList();
+            Inventory? isFound = inventories.Find(inventory => inventory.Id == inventoryId);
+            if(isFound == null) return null;
             return _inventoryRepository.FindOne(inventoryId);
         }
 
-        public Inventory? UpdateOne(Guid inventoryId, Inventory newInventory)
+        public Inventory? UpdateOne(Guid inventoryId, Inventory updateInventory)
         {
-            var findInventory = _inventoryRepository.FindOne(inventoryId);
+            Inventory? findInventory = _inventoryRepository.FindOne(inventoryId);
             if(findInventory == null) return null;
-            findInventory.Quantity = newInventory.Quantity;
-            findInventory.Color = newInventory.Color;
-            findInventory.Size = newInventory.Size;
+            findInventory.Quantity = updateInventory.Quantity;
+            findInventory.Color = updateInventory.Color;
+            findInventory.Size = updateInventory.Size;
             return _inventoryRepository.UpdateOne(findInventory);
         }
     }

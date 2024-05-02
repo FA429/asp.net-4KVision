@@ -58,7 +58,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             else
             {
                 item.Quantity = newValue.Quantity;
-                item.Total_price = newValue.Total_price;
+                item.TotalPrice = newValue.TotalPrice;
                 return _orderItemRepository.UpdateOne(item);
             }
         }

@@ -9,7 +9,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
         public Inventory? FindOne(Guid inventoryId);
         public Inventory? CreateOne(Inventory newInventory);
         public Inventory? DeleteOne(Guid inventoryId);
-        public Inventory? UpdateOne(Inventory newInventory);
+        public Inventory? UpdateOne(Inventory updateInventory);
 
     }
 }
