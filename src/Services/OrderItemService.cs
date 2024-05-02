@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
@@ -13,9 +12,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _orderItemRepository = orderItemRepository;
         }
 
-        public OrderItem CreateOne(OrderItem NewOrderItem)
+        public OrderItem? CreateOne(OrderItem newOrderItem)
         {
-            return _orderItemRepository.CreateOne(NewOrderItem);
+            var findItem = _orderItemRepository.FindOne(newOrderItem.Id);
+            if (findItem == null)
+            return _orderItemRepository.CreateOne(newOrderItem);
+            else
+            return null;
         }
 
         public OrderItem? DeleteOne(string orderItemId)
@@ -31,7 +34,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             }
         }
 
-        public DbSet<OrderItem> FindAll()
+        public List<OrderItem> FindAll()
         {
             return _orderItemRepository.FindAll();
         }

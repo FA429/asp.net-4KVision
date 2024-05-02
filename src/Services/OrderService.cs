@@ -17,7 +17,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _orderRepository = orderRepository;
         }
 
-        public DbSet<Order> FindAll()
+        public IEnumerable<Order> FindAll()
         {
             return _orderRepository.FindAll();
 

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using System.Reflection.Metadata.Ecma335;
-using Microsoft.EntityFrameworkCore;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 {
@@ -19,14 +18,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 
         }
         [HttpGet] //Action methods GET
-        public DbSet<Product> FindAll()
+        public List<Product> FindAll()
         {
 
             return _productService.FindAll();
         }
 
         [HttpGet("{productId}")] //Action methods GET with Route attributes
-        public Product? FindOne(Guid productId)
+        public Product? FindOne(string productId)
         {
 
             return _productService.FindOne(productId);
@@ -41,15 +40,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         }
 
         [HttpDelete("{productId}")]
-        public Product? DeleteOne(Guid productId)
+        public Product? DeleteOne(string productId)
         {
             return _productService.DeleteOne(productId);
         }
-
         [HttpPatch("{productId}")]
-        public Product? UpdateOne(Guid productId, [FromBody] Product product)
+        public Product? UpdateOne(string productId, [FromBody] Product product)
         {
-
             return _productService.UpdateOne(productId, product);
         }
     }

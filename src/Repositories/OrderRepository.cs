@@ -11,18 +11,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     {
 
         private DbSet<Order> _order;
-        public OrderRepository(DatabaseContext databaseContext)
+        private DatabaseContext _db;
+        
+        public OrderRepository(DatabaseContext databaseContext )
         {
-            _order = databaseContext.Order;
-
+            _order = databaseContext.Orders;
+            _db = databaseContext;
         }
 
-        public DbSet<Order> FindAll()
+        public IEnumerable<Order> FindAll()
         {
             return _order;
         }
 
-        public Order? FindOne(string OrderId)
+        public Order? FindOne(Guid OrderId)
         {
             var findOrder = _order.FirstOrDefault((order) => order.Id == OrderId);
             return findOrder;
@@ -31,17 +33,26 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         public Order CreateOne([FromBody] Order order)
         {
             _order.Add(order);
+                        _db.SaveChanges();
+
             return order;
 
         }
-        public Order? DeleteOne(string OrderId)
+        // public Order? DeleteOne(Guid orderId)
+        // {
+
+        //     var deleteOrder = _order.Find((order) => order.Id == OrderId);
+        //         _order.Remove(deleteOrder!);
+        //         return deleteOrder;
+
+        //     }
+               public Order? DeleteOne(Guid orderId)
         {
+            var deleteOrder = FindOne(orderId);
+            _order.Remove(deleteOrder!);
+            return deleteOrder;
+        }
 
-            var deleteOrder = _order.Find((order) => order.Id == OrderId);
-                _order.Remove(deleteOrder!);
-                return deleteOrder;
-
-            }
 
 
         }

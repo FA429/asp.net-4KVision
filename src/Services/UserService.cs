@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-using Microsoft.EntityFrameworkCore;
-=======
 using System.Text;
->>>>>>> 798687c12f5f5c33fa39b542377445515a851f9d
+using AutoMapper;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Utils;
 
@@ -13,11 +11,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     {
         private IUserRepository _userRepository;
         private IConfiguration _config;
+        private IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IConfiguration config)
+        public UserService(IUserRepository userRepository, IConfiguration config, IMapper mapper)
         {
             _userRepository = userRepository;
             _config = config;
+            _mapper = mapper;
         }
 
         public User CreateOne(User user)
@@ -28,7 +28,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return _userRepository.CreateOne(user);
         }
 
-        public User? DeleteOne(Guid userId)
+        public User? DeleteOne(string userId)
         {
             var deleteUser = _userRepository.FindOne(userId);
             if (deleteUser == null)
@@ -41,16 +41,23 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             }
         }
 
-        public DbSet<User> FindAll()
+        // Add mapper to Get Users
+        public List<UserReadDto> FindAll()
         {
-            return _userRepository.FindAll();
+            var users = _userRepository.FindAll();
+            var usersRead = users.Select(user => _mapper.Map<UserReadDto>(user));
+            return usersRead.ToList();
+
         }
 
-        public User? FindOne(Guid userId)
+        // Add mapper to Get User by Id
+        public UserReadDto? FindOne(string userId)
         {
-            return _userRepository.FindOne(userId);
+            User? user = _userRepository.FindOne(userId);
+            UserReadDto? userRead = _mapper.Map<UserReadDto>(user);
+            return userRead;
         }
-        public User? UpdateOne(Guid userId, User newValue)
+        public User? UpdateOne(string userId, User newValue)
         {
             var user = _userRepository.FindOne(userId);
             if (user != null)

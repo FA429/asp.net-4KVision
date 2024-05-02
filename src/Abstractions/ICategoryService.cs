@@ -1,17 +1,16 @@
 
-using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sdaonsite_2_csharp_backend_teamwork.src.Services
 {
     public interface ICategoryService
     {
-        public DbSet<Category> FindAll();
+              public List<Category> FindAll();
         public Category CreateOne(Category category);
-        public Category? FindOne(Guid categoryId);
-        public Category? DeleteOne(Guid categoryId);
+        public Category? FindOne(string categoryId);
+        public Category? DeleteOne(string categoryId);
 
-        public Category? UpdateOne(Guid categoryId, Category newValue);
+        public Category? UpdateOne(string categoryId, Category newValue );
 
 
 

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
@@ -7,11 +6,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 {
     public class OrderItemRepository : IOrderItemRepository
     {
-        private DbSet<OrderItem> _orderItems;
+        private List<OrderItem> _orderItems;
 
-        public OrderItemRepository(DatabaseContext databaseContext)
+        public OrderItemRepository()
         {
-            _orderItems = databaseContext.Order_Item;
+            _orderItems = new DatabaseContext().Order_Item;
         }
 
         public OrderItem CreateOne(OrderItem NewOrderItem)

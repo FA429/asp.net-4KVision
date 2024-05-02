@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
@@ -15,7 +14,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             return _productRepository.CreateOne(product);
         }
-        public Product? DeleteOne(Guid productId)
+        public Product? DeleteOne(string productId)
         {
             var deleteProduct = _productRepository.FindOne(productId);
             if (deleteProduct != null)
@@ -27,15 +26,15 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 return null;
             }
         }
-        public DbSet<Product> FindAll()
+        public List<Product> FindAll()
         {
             return _productRepository.FindAll();
         }
-        public Product? FindOne(Guid productId)
+        public Product? FindOne(string productId)
         {
             return _productRepository.FindOne(productId);
         }
-        public Product? UpdateOne(Guid productId, Product newProduct)
+        public Product? UpdateOne(string productId, Product newProduct)
         {
             var product = _productRepository.FindOne(productId);
             if (product != null)

@@ -1,34 +1,33 @@
 
+
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
-using Microsoft.EntityFrameworkCore;
 namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private DbSet<Product> _products;
-        public ProductRepository(DatabaseContext databaseContext)
+        private List<Product> _products;
+        public ProductRepository()
         {
-            _products = databaseContext.Products;
+            _products = new DatabaseContext().Products;
         }
-    
         public Product CreateOne(Product product)
         {
             _products.Add(product);
             return product;
         }
-        public Product? DeleteOne(Guid productId)
+        public Product? DeleteOne(string productId)
         {
             var deleteProduct = FindOne(productId);
             _products.Remove(deleteProduct!);
             return deleteProduct;
         }
-        public DbSet<Product> FindAll()
+        public List<Product> FindAll()
         {
             return _products;
         }
-        public Product? FindOne(Guid productId)
+        public Product? FindOne(string productId)
         {
             var findProduct = _products.Find(product => product.Id == productId);
             return findProduct;
@@ -46,6 +45,5 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             _products = product.ToList();
             return UpdateProduct;
         }
-
     }
 }

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
@@ -8,13 +7,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
     public class CategoryRepository : ICategoryRepository
     {
 
-        private DbSet<Category> _categories;
-        public CategoryRepository(DatabaseContext databaseContext)
+        private List<Category> _categories;
+        public CategoryRepository()
         {
-            _categories = databaseContext.Categories;
+            _categories = new DatabaseContext().categories;
         }
 
-        public DbSet<Category> FindAll()
+        public List<Category> FindAll()
         {
             return _categories;
         }
@@ -24,12 +23,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
             _categories.Add(category);
             return category;
         }
-        public Category? FindOne(Guid categoryId)
+        public Category? FindOne(string categoryId)
         {
             var foundCategory = _categories.FirstOrDefault(category => category.Id == categoryId);
             return foundCategory;
         }
-        public Category? DeleteOne(Guid categoryId)
+        public Category? DeleteOne(string categoryId)
         {
             var categoryFound = FindOne(categoryId);
             _categories.Remove(categoryFound!);
@@ -49,7 +48,5 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
             _categories = categories.ToList();
             return updateCategory;
         }
-
-        
     }
 }

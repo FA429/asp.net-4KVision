@@ -1,21 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
+using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
-namespace sda_onsite_2_csharp_backend_teamwork.src.Mappers
+namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
 {
-    public class Mapper : Profile
+    // Add mapper class
+    public class Mapper:Profile
     {
-        
-        public Mapper(){
-            
-
-
+        public Mapper()
+        {
+            CreateMap<User, UserReadDto>();
+            CreateMap<UserReadDto, User>();
         }
-
-
-
     }
 }

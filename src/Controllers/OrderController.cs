@@ -17,29 +17,43 @@ namespace sda_onsite_2_csharp_backend_teamwork.src
 
         [HttpGet]
 
-        public DbSet<Order> FindAll()
+        public IEnumerable<Order> FindAll()
         {
             return _orderService.FindAll();
 
         }
         [HttpGet("{OrderId}")]
-        public Order? FindOne(Guid OrderId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public ActionResult<Order?> FindOne(Guid orderId)
         {
-            return _orderService.FindOne(OrderId);
+            return _orderService.FindOne(orderId);
 
         }
 
         [HttpPost]
-        public Order CreateOne([FromBody] Order order)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Order> CreateOne([FromBody] Order order)
         {
-            return _orderService.CreateOne(order);
+
+            if (order != null)
+            {
+
+                var createdOrder = _orderService.CreateOne(order);
+                return CreatedAtAction(nameof(CreateOne), createdOrder);
+            }
+
+            return BadRequest();
 
         }
-
         [HttpDelete("{orderId}")]
-        public Order? DeleteOne(Guid OrderId)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+
+        public ActionResult<Order?> DeleteOne(Guid orderId)
         {
-            return _orderService.DeleteOne(OrderId);
+            NoContent();
+            return _orderService.DeleteOne(orderId);
 
         }
 

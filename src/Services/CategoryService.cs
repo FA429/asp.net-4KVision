@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
 using sdaonsite_2_csharp_backend_teamwork.src.Services;
@@ -22,17 +21,21 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
       return _categoryRepository.CreateOne(category);
     }
 
-    public DbSet<Category> FindAll()
+    public List<Category> FindAll()
     {
       return _categoryRepository.FindAll();
     }
 
-    public Category? FindOne(Guid categoryId)
+    public Category? FindOne(string categoryId)
     {
-
+      var findItem = _categoryRepository.FindAll().Find(item => item.Id == categoryId);
+      if (findItem == null)
+      {
+        return null;
+      }
       return _categoryRepository.FindOne(categoryId);
     }
-    public Category? DeleteOne(Guid categoryId)
+    public Category? DeleteOne(string categoryId)
     {
       var categoryFound = _categoryRepository.FindOne(categoryId);
       if (categoryFound != null)
@@ -43,7 +46,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
       return null;
     }
 
-        public Category? UpdateOne(Guid categoryId, Category newValue)
+        public Category? UpdateOne(string categoryId, Category newValue)
         {
 
           var item = _categoryRepository.FindOne(categoryId);
