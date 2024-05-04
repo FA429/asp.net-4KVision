@@ -15,7 +15,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Inventory> FindAll()
+        public List<Inventory> FindAll()
         {
             return _inventoryService.FindAll();
         }
