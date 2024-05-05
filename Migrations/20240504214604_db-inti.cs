@@ -39,31 +39,17 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "order_items",
+                name: "products",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    inventory_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    order_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    quantity = table.Column<string>(type: "text", nullable: false),
-                    total_price = table.Column<string>(type: "text", nullable: false)
+                    category_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    price = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_order_items", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "orders",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_orders", x => x.id);
+                    table.PrimaryKey("pk_products", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,6 +67,58 @@ namespace Backend.Migrations
                 {
                     table.PrimaryKey("pk_users", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "order_items",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    inventory_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    order_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    quantity = table.Column<string>(type: "text", nullable: false),
+                    total_price = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_order_items", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_order_items_inventories_inventory_id",
+                        column: x => x.inventory_id,
+                        principalTable: "inventories",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_orders", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_orders_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_order_items_inventory_id",
+                table: "order_items",
+                column: "inventory_id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_orders_user_id",
+                table: "orders",
+                column: "user_id",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -90,13 +128,16 @@ namespace Backend.Migrations
                 name: "categories");
 
             migrationBuilder.DropTable(
-                name: "inventories");
-
-            migrationBuilder.DropTable(
                 name: "order_items");
 
             migrationBuilder.DropTable(
                 name: "orders");
+
+            migrationBuilder.DropTable(
+                name: "products");
+
+            migrationBuilder.DropTable(
+                name: "inventories");
 
             migrationBuilder.DropTable(
                 name: "users");

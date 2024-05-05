@@ -19,7 +19,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=localhost;Database=e-commerce_db;Password=12345678Aa;Username=postgres")
+            => optionsBuilder.UseNpgsql(@$"Host={_config["Db:Host"]};Username={_config["Db:Username"]};Password={_config["Db:Password"]};Database={_config["Db:Database"]}")
             .UseSnakeCaseNamingConvention();
     }
 }
