@@ -179,13 +179,13 @@ uuid_generate_v4(),
 
 --------------------------------------------
 
-SELECT public.user.name ,  product.name , category.type ,
-inventory.color, inventory.size , product.price , order_item.quantity , order_item.amount , public.order.date
+SELECT public.users.name ,  products.name , categories.type ,
+inventories.color, inventories.size , products.price , order_items.quantity , order_items.quantity , public.orders.date
 
-FROM order_item
-JOIN public.order ON order_item.order_id = public.order.id
-JOIN public.user ON public.user.id = public.order.user_id
-JOIN inventory ON inventory.id = order_item.inventory_id
-JOIN product ON product.id = inventory.product_id
-JOIN category ON category.id = product.category_id
-order by public.user.name ASC
+FROM order_items
+JOIN public.orders ON order_items.order_id = public.orders.id
+JOIN public.users ON public.users.id = public.orders.user_id
+JOIN inventories ON inventories.id = order_items.inventory_id
+JOIN products ON products.id = inventories.product_id
+JOIN categories ON categories.id = products.category_id
+order by public.users.name ASC
