@@ -31,27 +31,19 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return readerUser;
         }
 
-        public UserReadDto? DeleteOne(Guid userId)
+        public bool DeleteOne(Guid userId)
         {
             var deleteUser = _userRepository.FindOne(userId);
-            if (deleteUser == null)
-            {
-                return null;
-            }
-            else
-            {
-
-                var deletedUser = _userRepository.DeleteOne(userId);
-                var readerUser = _mapper.Map<UserReadDto>(deletedUser);
-                return readerUser;
-            }
+            if (deleteUser == null) return false;
+                _userRepository.DeleteOne(userId);
+                return true;
         }
 
-        public List<UserReadDto> FindAll()
+        public IEnumerable<UserReadDto> FindAll()
         {
             var users = _userRepository.FindAll();
             var usersRead = users.Select(user => _mapper.Map<UserReadDto>(user));
-            return usersRead.ToList();
+            return usersRead;
 
         }
 
@@ -62,15 +54,16 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return userRead;
         }
 
-        public User? UpdateOne(Guid userId, User newValue)
+        public UserReadDto? UpdateOne(Guid userId, UserUpdateDto newValue)
         {
             var user = _userRepository.FindOne(userId);
-            if (user != null)
-            {
-                user.Name = newValue.Name;
-                return _userRepository.UpdateOne(user);
-            }
-            return null;
+            if (user == null) return null;
+            user.Name = newValue.Name;
+            user.Password = newValue.Password;
+            user.Email = newValue.Email;
+            user.Phone = newValue.Phone;
+            _userRepository.UpdateOne(user);
+            return _mapper.Map<UserReadDto>(user);
         }
     }
 }

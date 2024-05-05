@@ -28,7 +28,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             InventoryReadDto? isFound = inventories.FirstOrDefault(inventory => inventory.Id == inventoryId);
             if (isFound == null) return NoContent();
             InventoryReadDto? inventory = _inventoryService.FindOne(inventoryId);
-
             return Ok(inventory);
         }
 
