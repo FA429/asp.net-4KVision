@@ -47,7 +47,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             NoContent();
             return _productService.DeleteOne(productId);
         }
+
+
         [HttpPatch("{productId}")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         public Product? UpdateOne(Guid productId, [FromBody] Product product)
         {
             return _productService.UpdateOne(productId, product);

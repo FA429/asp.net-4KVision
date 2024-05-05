@@ -20,6 +20,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             var mappedOrderItem = _mapper.Map<Product>(product);
             var newProduct = _productRepository.CreateOne(mappedOrderItem);
+            
             return newProduct;
         }
         public Product? DeleteOne(Guid productId)
@@ -45,6 +46,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         public Product? UpdateOne(Guid productId, Product newProduct)
         {
             var product = _productRepository.FindOne(productId);
+
             if (product != null)
             {
                 product.Name = newProduct.Name;
