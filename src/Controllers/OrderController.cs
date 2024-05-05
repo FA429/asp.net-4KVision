@@ -43,17 +43,16 @@ namespace sda_onsite_2_csharp_backend_teamwork.src
             3. done.
             */
 
-            foreach (var item in checkedDtOItems)
-            {
-                Console.WriteLine($"{item.InventoryId}");
-            }
+            // foreach (var item in checkedDtOItems)
+            // {
+            //     Console.WriteLine($"{item.InventoryId}");
+            // }
 
-            if (checkedDtOItems != null)
-            {
+            // if (checkedDtOItems != null)
+            // {
 
-                // var createdOrder = _orderService.CreateOne(order);
-                // return CreatedAtAction(nameof(CreateOne), createdOrder);
-            }
+
+            // }
 
             return BadRequest();
 

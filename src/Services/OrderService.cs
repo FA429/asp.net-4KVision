@@ -14,12 +14,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     public class OrderServices : IOrderService
     {
         private IOrderRepository _orderRepository;
+        private IOrderItemRepository _orderItemRepository;
         private IConfiguration _config;
         private IMapper _mapper;
 
 
 
-        public OrderServices(IOrderRepository orderRepository, IConfiguration config ,IMapper mapper)
+        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _config = config;
@@ -39,27 +40,38 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
-        public Order CreateOne(List<OrderItem> orderItem)
+        public Order CreateOne(List<CheckoutDto> checkoutOrderItems)
         {
-            //1. fix mismatch of data type of order 
-            // 2. go to Irepo, fix for data type, it is not CheckoutDto, it should be orderItem 
-      var mappedOrder = _mapper.Map<OrderItem>(orderItem);
-      var newOrder = _orderRepository.CreateOne(mappedOrder);
-    return new O
-      
+            //1.  loop thro the checkedoutOItems and create orderItem
+            //2 add order item to orderItem table. OrderRepo.CreateOne(orderItems)
+            var order = new Order();
+            foreach (var item in checkoutOrderItems)
+            {
 
-            
-/*
-          1. create order
-          2. loop thro the checkedoutOItems and create OrderItem
-          3. done.
-
-          inside order, there will be a list of order item 
-          get the list of order items, then loop through it and create OrderItem
-          */
-
-
+                var orderItem = new OrderItem();
+                orderItem.OrderId = order.Id;
+                orderItem.InventoryId = item.InventoryId;
+                orderItem.Quantity = item.Quantity;
+                orderItem.TotalPrice = item.Amount;
+                _orderItemRepository.CreateOne(orderItem);
+            }
+            return _orderRepository.CreateOne(order);
         }
+
+        public Order CreateOne(List<OrderItem> OrderItem)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        /*
+                  1. create order
+                  2. loop thro the checkedoutOItems and create OrderItem
+                  3. done.
+                  */
+
+
 
         public Order? DeleteOne(Guid OrderId)
         {

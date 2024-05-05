@@ -19,7 +19,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         {
             _order = databaseContext.Orders;
             _db = databaseContext;
-            _orderItems=databaseContext.OrderItems;
+            _orderItems = databaseContext.OrderItems;
 
         }
 
@@ -34,13 +34,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return findOrder;
 
         }
-        public OrderItem CreateOne(OrderItem orderItem)
+        public Order CreateOne(Order order)
         {
-          
-            
-            _orderItems.Add(orderItem);
+
+            _order.Add(order);
             _db.SaveChanges();
-            return orderItem;
+            return order;
 
         }
         // public Order? DeleteOne(Guid orderId)
@@ -59,9 +58,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
             return deleteOrder;
         }
-
-
-
     }
 
 }
