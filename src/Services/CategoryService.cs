@@ -19,12 +19,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
       _mapper = mapper;
     }
 
-    public Category CreateOne(CategoryCreateDto category)
+    public CategoryReadDto CreateOne(CategoryCreateDto category)
     {
 
       Category? mappedCategory = _mapper.Map<Category>(category);
       Category newCategory = _categoryRepository.CreateOne(mappedCategory);
-      return newCategory;
+      return _mapper.Map<CategoryReadDto>(newCategory);
     }
 
     public IEnumerable<Category> FindAll()
@@ -32,39 +32,44 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
       return _categoryRepository.FindAll();
     }
 
-    public Category? FindOne(Guid categoryId)
+    public CategoryReadDto? FindOne(Guid categoryId)
     {
-      var findItem = _categoryRepository.FindAll().FirstOrDefault(item => item.Id == categoryId);
+      var findItem = _categoryRepository.FindOne(categoryId);
       if (findItem == null)
       {
         return null;
       }
-      return _categoryRepository.FindOne(categoryId);
+      return _mapper.Map<CategoryReadDto>(findItem);
     }
-    public Category? DeleteOne(Guid categoryId)
+    public CategoryReadDto? DeleteOne(Guid categoryId)
     {
-      var categoryFound = _categoryRepository.FindOne(categoryId);
+      var categoryFound = _categoryRepository.DeleteOne(categoryId);
       if (categoryFound != null)
       {
-        return _categoryRepository.DeleteOne(categoryId);
+
+        return _mapper.Map<CategoryReadDto>(categoryFound);
       }
 
-      return null;
+      throw new Exception("Item is not found");
     }
 
-    public Category? UpdateOne(Guid categoryId, Category category)
+    public CategoryReadDto UpdateOne(Guid categoryId, CategoryUpdateDto categoryUpdate)
     {
+      var category = _mapper.Map<Category>(categoryUpdate);
+    
 
-      var item = _categoryRepository.FindOne(categoryId);
+      var item = _categoryRepository.UpdateOne(category);
       if (item != null)
       {
         item.Type = category.Type;
-        return _categoryRepository.UpdateOne(item);
+        return _mapper.Map<CategoryReadDto>(item);
       }
       else
       {
         return null;
       }
     }
+
+
   }
 }

@@ -62,7 +62,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpPatch("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<Category> UpdateOne(Guid categoryId, [FromBody] Category category)
+        public ActionResult<Category> UpdateOne(Guid categoryId, [FromBody] CategoryUpdateDto category)
         {
             var updatedCategory = _categoryService.UpdateOne(categoryId, category);
             if (updatedCategory != null)
