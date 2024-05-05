@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
@@ -11,9 +12,11 @@ using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240504220313_update-order-inven")]
+    partial class updateorderinven
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,9 +71,6 @@ namespace Backend.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_inventories");
-
-                    b.HasIndex("ProductId")
-                        .HasDatabaseName("ix_inventories_product_id");
 
                     b.ToTable("inventories", (string)null);
                 });
@@ -130,9 +130,6 @@ namespace Backend.Migrations
                     b.HasIndex("InventoryId")
                         .HasDatabaseName("ix_order_items_inventory_id");
 
-                    b.HasIndex("OrderId")
-                        .HasDatabaseName("ix_order_items_order_id");
-
                     b.ToTable("order_items", (string)null);
                 });
 
@@ -158,9 +155,6 @@ namespace Backend.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_products");
-
-                    b.HasIndex("CategoryId")
-                        .HasDatabaseName("ix_products_category_id");
 
                     b.ToTable("products", (string)null);
                 });
@@ -203,16 +197,6 @@ namespace Backend.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Inventory", b =>
-                {
-                    b.HasOne("sda_onsite_2_csharp_backend_teamwork.src.Entities.Product", null)
-                        .WithMany("Inventory")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_inventories_products_product_id");
-                });
-
             modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Order", b =>
                 {
                     b.HasOne("sda_onsite_2_csharp_backend_teamwork.src.Entities.User", null)
@@ -231,43 +215,11 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_order_items_inventories_inventory_id");
-
-                    b.HasOne("sda_onsite_2_csharp_backend_teamwork.src.Entities.Order", null)
-                        .WithMany("OrderItem")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_order_items_orders_order_id");
-                });
-
-            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Product", b =>
-                {
-                    b.HasOne("sda_onsite_2_csharp_backend_teamwork.src.Entities.Category", null)
-                        .WithMany("Product")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_products_categories_category_id");
-                });
-
-            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Category", b =>
-                {
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Inventory", b =>
                 {
                     b.Navigation("OrderItem");
-                });
-
-            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Order", b =>
-                {
-                    b.Navigation("OrderItem");
-                });
-
-            modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Product", b =>
-                {
-                    b.Navigation("Inventory");
                 });
 
             modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.User", b =>
