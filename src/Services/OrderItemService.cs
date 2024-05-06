@@ -16,7 +16,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _mapper = mapper;
         }
 
-        public OrderItem? CreateOne(OrderItemCreateDto newOrderItem)
+        public Task<OrderItem?> CreateOne(OrderItemCreateDto newOrderItem)
         {
             var mappedOrderItem = _mapper.Map<OrderItem>(newOrderItem);
             var newItem = _orderItemRepository.CreateOne(mappedOrderItem);

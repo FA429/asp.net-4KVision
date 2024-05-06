@@ -20,11 +20,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
 
 
-        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IMapper mapper)
+        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IMapper mapper, IOrderItemRepository orderItemRepository)
         {
             _orderRepository = orderRepository;
             _config = config;
             _mapper = mapper;
+            _orderItemRepository = orderItemRepository;
 
         }
 
@@ -40,28 +41,38 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
-        public Order CreateOne(List<CheckoutDto> checkoutOrderItems)
+        public async Task<Order> CreateOne(List<CheckoutDto> checkoutOrderItems)
         {
-            //1.  loop thro the checkedoutOItems and create orderItem
-            //2 add order item to orderItem table. OrderRepo.CreateOne(orderItems)
-            var order = new Order();
-            foreach (var item in checkoutOrderItems)
+            try
             {
+                var order = new Order();
+                // order.UserId = new Guid("f0098fdc-10fb-4a4b-8caa-84713c621b34");
 
-                var orderItem = new OrderItem();
-                orderItem.OrderId = order.Id;
-                orderItem.InventoryId = item.InventoryId;
-                orderItem.Quantity = item.Quantity;
-                orderItem.TotalPrice = item.Amount;
-                _orderItemRepository.CreateOne(orderItem);
+                // Create the order and wait for it to be created
+                // order = await _orderRepository.CreateOne(order);
+                Console.WriteLine($"======{_orderItemRepository}");
+
+                foreach (var item in checkoutOrderItems)
+                {
+                    var orderItem = new OrderItem();
+                    orderItem.InventoryId = item.InventoryId;
+                    orderItem.Quantity = item.Quantity;
+                    orderItem.TotalPrice = item.TotalPrice;
+                    orderItem.OrderId = new Guid("04c620a9-079c-4b9d-86ca-03d20baa6370"); // Set OrderId after order is created
+                    await _orderItemRepository.CreateOne(orderItem);
+                }
+
+                return order;
             }
-            return _orderRepository.CreateOne(order);
+            catch (Exception ex)
+            {
+                // Log exception details
+                Console.WriteLine($"Exception occurred: {ex}");
+                throw; // Rethrow the exception
+            }
+
         }
 
-        public Order CreateOne(List<OrderItem> OrderItem)
-        {
-            throw new NotImplementedException();
-        }
 
 
 

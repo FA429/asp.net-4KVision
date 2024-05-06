@@ -34,22 +34,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return findOrder;
 
         }
-        public Order CreateOne(Order order)
+        public async Task<Order> CreateOne(Order order)
         {
+            Console.WriteLine("======ORDER=======");
+            await _order.AddAsync(order);
+            Console.WriteLine("======ORDER=======");
 
-            _order.Add(order);
             _db.SaveChanges();
+            Console.WriteLine("======ORDER=======");
+
             return order;
 
         }
-        // public Order? DeleteOne(Guid orderId)
-        // {
 
-        //     var deleteOrder = _order.Find((order) => order.Id == OrderId);
-        //         _order.Remove(deleteOrder!);
-        //         return deleteOrder;
 
-        //     }
         public Order? DeleteOne(Guid orderId)
         {
             var deleteOrder = FindOne(orderId);

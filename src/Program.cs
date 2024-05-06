@@ -10,6 +10,7 @@ using sdaonsite_2_csharp_backend_teamwork.src.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,8 +36,8 @@ builder.Services.AddScoped<IOrderService, OrderServices>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IInventoryService,InventoryService>();
-builder.Services.AddScoped<IInventoryRepository,InventoryRepository>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 
 
 

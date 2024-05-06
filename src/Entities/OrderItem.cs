@@ -9,10 +9,5 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
         public int Quantity { get; set; }
         public double TotalPrice { get; set; }
 
-        public OrderItem()
-        {
-
-        }
-
     }
 }

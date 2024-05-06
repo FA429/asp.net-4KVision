@@ -114,14 +114,12 @@ namespace Backend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("order_id");
 
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
                         .HasColumnName("quantity");
 
-                    b.Property<string>("TotalPrice")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("double precision")
                         .HasColumnName("total_price");
 
                     b.HasKey("Id")

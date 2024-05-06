@@ -30,4 +30,3 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 
 
 
-// => optionsBuilder.UseNpgsql(@$"Host={_config[":Host"]};Username={_config["Db:Username:"]};Password={_config["Db:Password"]};Database={_config["Db:Database"]}")
