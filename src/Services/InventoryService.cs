@@ -16,41 +16,48 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _mapper = mapper;
         }
 
-        public Inventory? CreateOne(InventoryCreateDto newInventory)
+        public InventoryReadDto? CreateOne(InventoryCreateDto newInventory)
         {
             Inventory? mapperInventory = _mapper.Map<Inventory>(newInventory);
-            Inventory? inventory =_inventoryRepository.CreateOne(mapperInventory);
-            return inventory;
+            Inventory? inventory = _inventoryRepository.CreateOne(mapperInventory);
+            InventoryReadDto? readInventory = _mapper.Map<InventoryReadDto>(inventory);
+            return readInventory;
         }
 
-        public Inventory? DeleteOne(Guid inventoryId)
+        public bool DeleteOne(Guid inventoryId)
         {
             Inventory? findInventory = _inventoryRepository.FindOne(inventoryId);
-            if(findInventory == null) return null;
-            return _inventoryRepository.DeleteOne(inventoryId);
+            if (findInventory == null) return false;
+            _inventoryRepository.DeleteOne(inventoryId);
+            return true;
         }
 
-        public List<Inventory> FindAll()
+        public IEnumerable<InventoryReadDto> FindAll()
         {
-            return _inventoryRepository.FindAll().ToList();
+            IEnumerable<Inventory>? inventories = _inventoryRepository.FindAll();
+            IEnumerable<InventoryReadDto> readInventories = inventories.Select(item => _mapper.Map<InventoryReadDto>(item));
+            return readInventories;
+
         }
 
-        public Inventory? FindOne(Guid inventoryId)
+        public InventoryReadDto? FindOne(Guid inventoryId)
         {
-            List<Inventory> inventories = _inventoryRepository.FindAll().ToList();
-            Inventory? isFound = inventories.Find(inventory => inventory.Id == inventoryId);
-            if(isFound == null) return null;
-            return _inventoryRepository.FindOne(inventoryId);
+            IEnumerable<Inventory> inventories = _inventoryRepository.FindAll();
+            Inventory? isFound = inventories.FirstOrDefault(inventory => inventory.Id == inventoryId);
+            if (isFound == null) return null;
+            var inventory =_inventoryRepository.FindOne(inventoryId);
+            return _mapper.Map<InventoryReadDto>(inventory);
         }
 
-        public Inventory? UpdateOne(Guid inventoryId, Inventory updateInventory)
+        public InventoryReadDto? UpdateOne(Guid inventoryId, InventoryUpdateDto updateInventory)
         {
-            Inventory? findInventory = _inventoryRepository.FindOne(inventoryId);
-            if(findInventory == null) return null;
-            findInventory.Quantity = updateInventory.Quantity;
-            findInventory.Color = updateInventory.Color;
-            findInventory.Size = updateInventory.Size;
-            return _inventoryRepository.UpdateOne(findInventory);
+            Inventory? inventory = _inventoryRepository.FindOne(inventoryId);
+            if (inventory == null) return null;
+            inventory.Quantity = updateInventory.Quantity;
+            inventory.Color = updateInventory.Color;
+            inventory.Size = updateInventory.Size;
+            _inventoryRepository.UpdateOne(inventory);
+            return _mapper.Map<InventoryReadDto>(inventory);
         }
     }
 }
