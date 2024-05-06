@@ -28,9 +28,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             _databaseContext.SaveChanges();
             return true;
         }
-        public IEnumerable<Product> FindAll()
+        public IEnumerable<Product> FindAll(int limit, int offset)
         {
-            return _products;
+            if(limit == 0 & offset ==0 ){
+                return _products;
+            }
+            return _products.Skip(offset).Take(limit);
         }
         public Product? FindOne(Guid productId)
         {

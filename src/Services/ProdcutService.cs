@@ -10,11 +10,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         private IProductRepository _productRepository;
         private IConfiguration _config;
         private IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IConfiguration config, IMapper mapper)
+        public ProductService(IProductRepository productRepository, IConfiguration config , IMapper mapper)
         {
             _productRepository = productRepository;
             _config = config;
-            _mapper = mapper;
+            _mapper =mapper;
         }
         public ProductReadDto CreateOne(ProductCreateDto product)
         {
@@ -32,25 +32,23 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             if (deleteProduct != null)
             {
                 return _productRepository.DeleteOne(deleteProduct);
-                
             }
             else
             {
                 return false;
             }
         }
-        public IEnumerable<ProductReadDto> FindAll()
+        public IEnumerable<ProductReadDto> FindAll(int limit , int offset)
         {
-            IEnumerable<Product> products = _productRepository.FindAll();
+            IEnumerable<Product> products = _productRepository.FindAll(limit, offset);
             return products.Select(_mapper.Map<ProductReadDto>);
-
+            
         }
         public ProductReadDto FindOne(Guid productId)
         {
             Product? products = _productRepository.FindOne(productId);
             return _mapper.Map<ProductReadDto>(products);
         }
-
         public ProductReadDto UpdateOne(Guid productId, ProductUpdateDto updatedProduct)
         {
             var product = _productRepository.FindOne(productId);
@@ -68,12 +66,3 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         }
     }
 }
-//var product = _products.Select(product =>
-        //    {
-        //        if (product.Id == UpdateProduct.Id)
-        //        {
-        //            return UpdateProduct;
-        //        }
-        //        return product;
-        //    });
-        //     _products = product.ToList()

@@ -13,10 +13,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             _productService = productService;
         }
         [HttpGet] //Action methods GET
-        public IEnumerable<ProductReadDto> FindAll()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<ProductReadDto>> FindAll([FromQuery(Name =  "limit")]int limit, [FromQuery(Name = "offset")]int offset)
         {
 
-            return _productService.FindAll();
+            return Ok(_productService.FindAll(limit, offset));
         }
 
         [HttpGet("{productId}")] //Action methods GET with Route attributes
