@@ -13,7 +13,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             _productService = productService;
         }
         [HttpGet] //Action methods GET
-        public IEnumerable<Product> FindAll()
+        public IEnumerable<ProductReadDto> FindAll()
         {
 
             return _productService.FindAll();
@@ -21,15 +21,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 
         [HttpGet("{productId}")] //Action methods GET with Route attributes
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<Product?> FindOne(Guid productId)
-        {   
-            return Ok(_productService.FindOne(productId));
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<ProductReadDto?> FindOne(Guid productId)
+        {
+            ProductReadDto? foundProduct = _productService.FindOne(productId);
+            if(foundProduct is null) return NoContent();
+            return Ok(foundProduct);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)] // documentation error status code
-        public ActionResult<Product> CreateOne([FromBody] ProductCreateDto product)
+        public ActionResult<ProductReadDto> CreateOne([FromBody] ProductCreateDto product)
         {
             if (product is not null)
             {
@@ -41,19 +44,33 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         }
 
         [HttpDelete("{productId}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]// documentation error status code
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]// documentation error status code
         public ActionResult<Product?> DeleteOne(Guid productId)
         {
-            NoContent();
-            return _productService.DeleteOne(productId);
+            var deletedProduct = _productService.DeleteOne(productId);
+            if (deletedProduct == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
 
 
         [HttpPatch("{productId}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        public Product? UpdateOne(Guid productId, [FromBody] Product product)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Product> UpdateOne(Guid productId, [FromBody] ProductUpdateDto updateProduct)
         {
-            return _productService.UpdateOne(productId, product);
+            var foundProduct = FindOne(productId);
+
+            if (foundProduct != null)
+            {
+                ProductReadDto product = _productService.UpdateOne(productId, updateProduct);
+
+                return Accepted(product);
+            }
+            return NotFound();
         }
     }
 }
