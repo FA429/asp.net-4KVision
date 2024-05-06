@@ -10,49 +10,70 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         private IProductRepository _productRepository;
         private IConfiguration _config;
         private IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IConfiguration config , IMapper mapper)
+        public ProductService(IProductRepository productRepository, IConfiguration config, IMapper mapper)
         {
             _productRepository = productRepository;
             _config = config;
-            _mapper =mapper;
+            _mapper = mapper;
         }
-        public Product? CreateOne(ProductCreateDto product)
+        public ProductReadDto CreateOne(ProductCreateDto product)
         {
             var mappedOrderItem = _mapper.Map<Product>(product);
-            var newProduct = _productRepository.CreateOne(mappedOrderItem);
-            
+            _productRepository.CreateOne(mappedOrderItem);
+
+            var newProduct = _mapper.Map<ProductReadDto>(product);
+
+
             return newProduct;
         }
-        public Product? DeleteOne(Guid productId)
+        public bool? DeleteOne(Guid productId)
         {
             var deleteProduct = _productRepository.FindOne(productId);
             if (deleteProduct != null)
             {
-                return _productRepository.DeleteOne(productId);
+                return _productRepository.DeleteOne(deleteProduct);
+                
             }
             else
             {
-                return null;
+                return false;
             }
         }
-        public IEnumerable<Product> FindAll()
+        public IEnumerable<ProductReadDto> FindAll()
         {
-            return _productRepository.FindAll();
+            IEnumerable<Product> products = _productRepository.FindAll();
+            return products.Select(_mapper.Map<ProductReadDto>);
+
         }
-        public Product? FindOne(Guid productId)
+        public ProductReadDto FindOne(Guid productId)
         {
-            return _productRepository.FindOne(productId);
+            Product? products = _productRepository.FindOne(productId);
+            return _mapper.Map<ProductReadDto>(products);
         }
-        public Product? UpdateOne(Guid productId, Product newProduct)
+
+        public ProductReadDto UpdateOne(Guid productId, ProductUpdateDto updatedProduct)
         {
             var product = _productRepository.FindOne(productId);
-
+            //ToDo: implement if  statement for each property in product to check if it exists before updating
             if (product != null)
             {
-                product.Name = newProduct.Name;
-                return _productRepository.UpdateOne(product);
+                product.Name = updatedProduct.Name;
+                product.CategoryId = updatedProduct.CategoryId;
+                product.Price = updatedProduct.Price;
+                _productRepository.UpdateOne(product);
+
+                return _mapper.Map<ProductReadDto>(product);
             }
             return null;
         }
     }
 }
+//var product = _products.Select(product =>
+        //    {
+        //        if (product.Id == UpdateProduct.Id)
+        //        {
+        //            return UpdateProduct;
+        //        }
+        //        return product;
+        //    });
+        //     _products = product.ToList()

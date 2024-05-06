@@ -7,7 +7,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
         public IEnumerable<Product> FindAll();
         public Product? FindOne(Guid productId);
         public Product CreateOne(Product product);
-        public Product? DeleteOne(Guid productId);
+        public bool? DeleteOne(Product product);
         public Product UpdateOne(Product product);
     }
 }
