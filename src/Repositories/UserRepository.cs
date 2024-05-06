@@ -42,18 +42,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return findUser;    
         }
 
-        public User UpdateOne(User UpdatedUser)
+        public User UpdateOne(User updatedUser)
         {
-            // var users = _users.Select(user =>
-            // {
-            //     if (user.Id == UpdatedUser.Id)
-            //     {
-            //         return UpdatedUser;
-            //     }
-            //     return user;
-            // });
-            // _users = users.ToList();
-            return UpdatedUser;
+            _users.Update(updatedUser);
+            _databaseContext.SaveChanges();
+            return updatedUser;
         }
     }
 }
