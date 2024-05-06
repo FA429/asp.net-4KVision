@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
+using sda_onsite_2_csharp_backend_teamwork.src.Enums;
 namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 {
     public class DatabaseContext : DbContext // DbContext is built in calss to give me access to database (gateway to database)
@@ -18,9 +20,21 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 
         }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql(@$"Host={_config["Db:Host"]};Username={_config["Db:Username"]};Password={_config["Db:Password"]};Database={_config["Db:Database"]}")
-            .UseSnakeCaseNamingConvention();
+        {
+
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(@$"Host={_config["Db:Host"]};Username={_config["Db:Username"]};Database={_config["Db:Database"]};Password={_config["Db:Password"]}");
+            dataSourceBuilder.MapEnum<Role>();
+            var dataSource = dataSourceBuilder.Build();
+
+            optionsBuilder.UseNpgsql(dataSource).UseSnakeCaseNamingConvention();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasPostgresEnum<Role>();
+        }
     }
 }
 
@@ -29,4 +43,3 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
 
 
 
-// => optionsBuilder.UseNpgsql(@$"Host={_config[":Host"]};Username={_config["Db:Username:"]};Password={_config["Db:Password"]};Database={_config["Db:Database"]}")

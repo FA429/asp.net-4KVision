@@ -15,7 +15,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
         public string Password { get; set; }
         [Required, EmailAddress]
         public string Email { get; set; }
-        [Required, MaxLength]
+        [Required]
         public string Phone { get; set; }
         public List<Order>? Order { get; set; }
 

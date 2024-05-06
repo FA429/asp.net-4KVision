@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using sda_onsite_2_csharp_backend_teamwork.src.Databases;
+using sda_onsite_2_csharp_backend_teamwork.src.Enums;
 
 #nullable disable
 
@@ -20,6 +21,7 @@ namespace Backend.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "customer", "admin" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("sda_onsite_2_csharp_backend_teamwork.src.Entities.Category", b =>
@@ -192,9 +194,8 @@ namespace Backend.Migrations
                         .HasColumnType("text")
                         .HasColumnName("phone");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<Role>("Role")
+                        .HasColumnType("role")
                         .HasColumnName("role");
 
                     b.HasKey("Id")

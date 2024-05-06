@@ -30,15 +30,26 @@ public class UserController : CustomBaseController
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<UserReadDto> CreateOne([FromBody] UserCreateDto user)
+    public ActionResult<UserReadDto> SignUp([FromBody] UserCreateDto user)
     {
         if (user != null)
         {
-            var createdUser = _userService.CreateOne(user);
-            return CreatedAtAction(nameof(CreateOne), createdUser);
+            var createdUser = _userService.SignUp(user);
+            return CreatedAtAction(nameof(SignUp), createdUser);
         }
         return BadRequest();
     }
+    [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<UserReadDto?> Login([FromBody] UserLogInDto user)
+    {
+        if(user == null) return BadRequest();
+        UserReadDto? loginUser = _userService.Login(user);
+        if(loginUser == null) return BadRequest();
+        return Ok(loginUser);
+    }
+
     [HttpDelete("{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

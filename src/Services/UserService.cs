@@ -20,7 +20,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _mapper = mapper;
         }
 
-        public UserReadDto CreateOne(UserCreateDto user)
+        public UserReadDto SignUp(UserCreateDto user)
         {
             byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
             PasswordUtils.HashPassword(user.Password, out string hashedPassword, pepper);
@@ -31,12 +31,23 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return readerUser;
         }
 
+        public UserReadDto? Login(UserLogInDto user)
+        {
+            IEnumerable<User>? users = _userRepository.FindAll();
+            User? isUser=users.FirstOrDefault(u => u.Email==user.Email);
+            if(isUser == null) return null;
+            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
+            bool isCorrect = PasswordUtils.VerifyPassword(user.Password,isUser.Password,pepper);
+            if(!isCorrect) return null;
+            return _mapper.Map<UserReadDto>(isUser);
+        }
+
         public bool DeleteOne(Guid userId)
         {
             var deleteUser = _userRepository.FindOne(userId);
             if (deleteUser == null) return false;
-                _userRepository.DeleteOne(userId);
-                return true;
+            _userRepository.DeleteOne(userId);
+            return true;
         }
 
         public IEnumerable<UserReadDto> FindAll()
@@ -65,5 +76,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _userRepository.UpdateOne(user);
             return _mapper.Map<UserReadDto>(user);
         }
+
     }
 }
