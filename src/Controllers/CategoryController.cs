@@ -23,7 +23,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Category> CreateOne([FromBody] CategoryCreateDto category)
+        public ActionResult<CategoryReadDto> CreateOne([FromBody] CategoryCreateDto category)
         {
             var createdCategory = _categoryService.CreateOne(category);
             if (createdCategory != null)
@@ -36,7 +36,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpGet("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<Category> FindOne(Guid categoryId)
+        public ActionResult<CategoryReadDto?> FindOne(Guid categoryId)
         {
             var category = _categoryService.FindOne(categoryId);
             if (category != null)
@@ -49,7 +49,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpDelete("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
 
-        public ActionResult<Category> DeleteOne([FromRoute] Guid categoryId)
+        public ActionResult< CategoryReadDto?> DeleteOne([FromRoute] Guid categoryId)
         {
             var deletedCategory = _categoryService.DeleteOne(categoryId);
             if (deletedCategory != null)
@@ -62,7 +62,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpPatch("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<Category> UpdateOne(Guid categoryId, [FromBody] CategoryUpdateDto updatedCategory)
+        public ActionResult<CategoryReadDto> UpdateOne(Guid categoryId, [FromBody] CategoryUpdateDto updatedCategory)
         {
             CategoryReadDto category = _categoryService.UpdateOne(categoryId, updatedCategory);
             return Accepted(category);
