@@ -5,3 +5,4 @@ obj
 *.http
 appsettings.json
 README.md
+Migrations
