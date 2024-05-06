@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
@@ -12,6 +13,7 @@ public class UserController : CustomBaseController
         _userService = userService;
     }
     [HttpGet]
+    // [Authorize(Roles = "Admin")]
     public IEnumerable<UserReadDto> FindAll()
     {
         return _userService.FindAll();
@@ -27,7 +29,7 @@ public class UserController : CustomBaseController
         if (user == null) return NoContent();
         return Ok(_userService.FindOne(userId));
     }
-    [HttpPost]
+    [HttpPost("signUp")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public ActionResult<UserReadDto> SignUp([FromBody] UserCreateDto user)
@@ -42,12 +44,12 @@ public class UserController : CustomBaseController
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<UserReadDto?> Login([FromBody] UserLogInDto user)
+    public ActionResult<string?> Login([FromBody] UserLogInDto user)
     {
         if(user == null) return BadRequest();
-        UserReadDto? loginUser = _userService.Login(user);
-        if(loginUser == null) return BadRequest();
-        return Ok(loginUser);
+        string? token = _userService.Login(user);
+        if(token == null) return BadRequest();
+        return Ok(token);
     }
 
     [HttpDelete("{userId}")]

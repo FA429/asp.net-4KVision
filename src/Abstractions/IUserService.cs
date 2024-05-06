@@ -9,7 +9,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
         public IEnumerable<UserReadDto> FindAll();
         public UserReadDto? FindOne(Guid userId);
         public UserReadDto SignUp(UserCreateDto user);
-        public UserReadDto? Login(UserLogInDto user);
+        public string? Login(UserLogInDto user);
         public bool DeleteOne(Guid userId);
         public UserReadDto? UpdateOne(Guid userId, UserUpdateDto user);
     }
