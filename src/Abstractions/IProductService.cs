@@ -4,10 +4,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
 {
     public interface IProductService
     {
-        public IEnumerable<Product> FindAll();
-        public Product? FindOne(Guid productId);
-        public Product? CreateOne(ProductCreateDto product);
-        public Product? DeleteOne(Guid productId);
-        public Product? UpdateOne(Guid productId, Product product);
+        public IEnumerable<ProductReadDto> FindAll(int limit, int offset);
+        public ProductReadDto FindOne(Guid productId);
+        public ProductReadDto CreateOne(ProductCreateDto product);
+        public bool? DeleteOne(Guid productId);
+        public   ProductReadDto  UpdateOne(Guid productId, ProductUpdateDto product);
     }
 }
