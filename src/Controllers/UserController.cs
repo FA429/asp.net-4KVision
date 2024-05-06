@@ -11,17 +11,20 @@ public class UserController : CustomBaseController
     {
         _userService = userService;
     }
-    // Add mapper to Get Users
     [HttpGet]
-    public List<UserReadDto> FindAll()
+    public IEnumerable<UserReadDto> FindAll()
     {
         return _userService.FindAll();
     }
 
     [HttpGet("{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public ActionResult<UserReadDto?> FindOne(Guid userId)
     {
+        IEnumerable<UserReadDto>? users = _userService.FindAll();
+        UserReadDto? user = users.FirstOrDefault(u => u.Id == userId);
+        if (user == null) return NoContent();
         return Ok(_userService.FindOne(userId));
     }
     [HttpPost]
@@ -38,24 +41,21 @@ public class UserController : CustomBaseController
     }
     [HttpDelete("{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public ActionResult<UserReadDto?> DeleteOne(Guid userId)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult DeleteOne(Guid userId)
     {
         var deleteUser = _userService.FindOne(userId);
-        if (deleteUser != null)
-        {
-
-            return Ok(_userService.DeleteOne(userId));
-        }
-        else
-        {
-
-            return NoContent();
-        }
+        if (deleteUser == null) return NotFound();
+        _userService.DeleteOne(userId);
+        return NoContent();
     }
     [HttpPatch("{userId}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<User?> UpdateOne(Guid userId, [FromBody] User user)
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<UserReadDto?> UpdateOne(Guid userId, [FromBody] UserUpdateDto user)
     {
-        return Ok(_userService.UpdateOne(userId, user));
+        var isUser = _userService.FindOne(userId);
+        if (isUser == null) return NotFound();
+        return Accepted(_userService.UpdateOne(userId, user));
     }
 }

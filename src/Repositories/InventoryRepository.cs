@@ -23,12 +23,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return newInventory;
         }
 
-        public Inventory? DeleteOne(Guid inventoryId)
+        public void DeleteOne(Guid inventoryId)
         {
             var deletedInventory = FindOne(inventoryId);
             _inventories.Remove(deletedInventory!);
             _databaseContext.SaveChanges();
-            return deletedInventory;
         }
 
         public IEnumerable<Inventory> FindAll()
@@ -44,16 +43,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public Inventory? UpdateOne(Inventory updateInventory)
         {
-            // var inventories = _inventories.Select(inventory =>
-            // {
-            //     if (inventory.Id == updateInventory.Id)
-            //         return updateInventory;
-            //     else
-            //     {
-            //         return inventory;
-            //     }
-            // });
-            // _inventories = inventories.ToList();
+            _inventories.Update(updateInventory);
+            _databaseContext.SaveChanges();
             return updateInventory;
         }
     }

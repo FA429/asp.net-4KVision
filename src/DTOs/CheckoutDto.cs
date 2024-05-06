@@ -2,8 +2,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.DTOs
 {
     public class CheckoutDto
     {
-        public Guid InventoryId { get; set; }
+        public Guid ProductId { get; set; }
         public int Quantity { get; set; }
         public double TotalPrice { get; set; }
+        public string Size { get; set; }
+        public string Color { get; set; }
     }
 }
