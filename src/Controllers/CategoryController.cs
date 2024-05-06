@@ -15,7 +15,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Category>> FindAll()
+        public ActionResult<IEnumerable<CategoryReadDto>> FindAll()
         {
             return Ok(_categoryService.FindAll());
         }
@@ -62,14 +62,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpPatch("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<Category> UpdateOne(Guid categoryId, [FromBody] CategoryUpdateDto category)
+        public ActionResult<Category> UpdateOne(Guid categoryId, [FromBody] CategoryUpdateDto updatedCategory)
         {
-            var updatedCategory = _categoryService.UpdateOne(categoryId, category);
-            if (updatedCategory != null)
-            {
-                return Ok(updatedCategory);
-            }
-            return NotFound();
+            CategoryReadDto category = _categoryService.UpdateOne(categoryId, updatedCategory);
+            return Accepted(category);
         }
     }
 

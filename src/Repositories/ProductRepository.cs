@@ -22,16 +22,18 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             _databaseContext.SaveChanges();
             return product;
         }
-        public Product? DeleteOne(Guid productId)
+        public bool? DeleteOne(Product product)
         {
-            var deleteProduct = FindOne(productId);
-            _products.Remove(deleteProduct!);
+            _products.Remove(product!);
             _databaseContext.SaveChanges();
-            return deleteProduct;
+            return true;
         }
-        public IEnumerable<Product> FindAll()
+        public IEnumerable<Product> FindAll(int limit, int offset)
         {
-            return _products;
+            if(limit == 0 & offset ==0 ){
+                return _products;
+            }
+            return _products.Skip(offset).Take(limit);
         }
         public Product? FindOne(Guid productId)
         {
@@ -40,18 +42,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
         public Product UpdateOne(Product UpdateProduct)
         {
-        //     var product = _products.Select(product =>
-        //    {
-        //        if (product.Id == UpdateProduct.Id)
-        //        {
-        //            return UpdateProduct;
-        //        }
-        //        return product;
-        //    });
-        //     _products = product.ToList()
-
+            _databaseContext.Products.Update(UpdateProduct);
+            _databaseContext.SaveChanges();
 
             return UpdateProduct;
         }
     }
 }
+
+        

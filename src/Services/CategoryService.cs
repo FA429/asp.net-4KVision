@@ -27,9 +27,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
       return _mapper.Map<CategoryReadDto>(newCategory);
     }
 
-    public IEnumerable<Category> FindAll()
+    public IEnumerable<CategoryReadDto> FindAll()
     {
-      return _categoryRepository.FindAll();
+      IEnumerable<Category> categories = _categoryRepository.FindAll();
+      return categories.Select(_mapper.Map<CategoryReadDto>);
     }
 
     public CategoryReadDto? FindOne(Guid categoryId)
@@ -53,23 +54,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
       throw new Exception("Item is not found");
     }
 
-    public CategoryReadDto UpdateOne(Guid categoryId, CategoryUpdateDto categoryUpdate)
+    public CategoryReadDto? UpdateOne(Guid categoryId, CategoryUpdateDto categoryUpdate)
     {
-      var category = _mapper.Map<Category>(categoryUpdate);
-    
-
-      var item = _categoryRepository.UpdateOne(category);
-      if (item != null)
-      {
-        item.Type = category.Type;
-        return _mapper.Map<CategoryReadDto>(item);
-      }
-      else
-      {
-        return null;
-      }
+      Category? category = _categoryRepository.FindOne(categoryId);
+      if (category is null) return null;
+      _mapper.Map(categoryUpdate, category);
+      _categoryRepository.UpdateOne(category);
+      return _mapper.Map<CategoryReadDto>(category);
     }
-
-
   }
 }

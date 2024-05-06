@@ -52,17 +52,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public Category? UpdateOne(Category updatedCategory)
         {
-            //  var category = _categories.FirstOrDefault(item => item.Id == updatedCategory.Id);
-            // if (category != null)
-            // {
-            //     category.Type = updatedCategory.Type;
-            //      _databaseContext.SaveChanges();
-            // }
-            // return updatedCategory;
-            Console.WriteLine($"Updaste or not");
-
-
-            _categories.Update(updatedCategory);
+            _databaseContext.Categories.Update(updatedCategory);
             _databaseContext.SaveChanges();
             return updatedCategory;
         }
