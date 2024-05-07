@@ -30,10 +30,14 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return deleteUser;
         }
 
-        public IEnumerable<User> FindAll()
+        public IEnumerable<User> FindAll(int limit, int offset)
         {
-            return _users;
-            
+            if (limit == 0 & offset == 0)
+            {
+                return _users;
+            }
+            return _users.Skip(offset).Take(limit);
+
         }
 
         public User? FindOne(Guid userId)
