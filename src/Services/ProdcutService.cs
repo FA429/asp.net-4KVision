@@ -20,10 +20,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             var mappedOrderItem = _mapper.Map<Product>(product);
             _productRepository.CreateOne(mappedOrderItem);
-
             var newProduct = _mapper.Map<ProductReadDto>(product);
-
-
             return newProduct;
         }
         public bool? DeleteOne(Guid productId)
