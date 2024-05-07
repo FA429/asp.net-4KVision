@@ -20,10 +20,11 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         private IProductRepository _productRepository;
         private IConfiguration _config;
         private IMapper _mapper;
+        private IUserRepository _userRepository;
 
 
 
-        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IMapper mapper, IOrderItemRepository orderItemRepository, IInventoryRepository inventoryRepository, IProductRepository productRepository)
+        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IMapper mapper, IOrderItemRepository orderItemRepository, IInventoryRepository inventoryRepository, IProductRepository productRepository, IUserRepository userRepository)
         {
             _orderRepository = orderRepository;
             _config = config;
@@ -31,6 +32,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             _orderItemRepository = orderItemRepository;
             _inventoryRepository = inventoryRepository;
             _productRepository = productRepository;
+            _userRepository = userRepository;
 
         }
 
@@ -48,31 +50,41 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public async Task<Order> CreateOne(List<CheckoutDto> checkoutOrderItems)
         {
-
+            Console.WriteLine("================================");
 
             var order = new Order();
-            // order.UserId = new Guid("f0098fdc-10fb-4a4b-8caa-84713c621b34");
+            order = await _orderRepository.CreateOne(order);
 
-            // Create the order and wait for it to be created
-            // order = await _orderRepository.CreateOne(order);
-
-            foreach (var item in checkoutOrderItems)
+            foreach (var checkoutItem in checkoutOrderItems)
             {
                 var orderItem = new OrderItem();
+                var inventory = new Inventory();
+                var user = new User();
 
-
-
-                // Select cloer ,size productId from inventory where size.order= size and cloer= cloer and productId= productId
-                var findInventory = _inventoryRepository.FindAll().FirstOrDefault((inv) => inv.Size == item.Size && inv.Color == item.Color && inv.ProductId == item.ProductId);
+                var findInventory = _inventoryRepository.FindAll().FirstOrDefault((inv) => inv.Size == checkoutItem.Size && inv.Color == checkoutItem.Color && inv.ProductId == checkoutItem.ProductId);
                 orderItem.InventoryId = findInventory.Id;
-                orderItem.Quantity = item.Quantity;
-                orderItem.TotalPrice = item.TotalPrice;
-                orderItem.OrderId = order.Id; // Set OrderId after order is created
-                await _orderItemRepository.CreateOne(orderItem);
+                
+                Console.WriteLine($"================{findInventory}=======================");
+                orderItem.Quantity = checkoutItem.Quantity;
+                if (inventory.Quantity >= checkoutItem.Quantity)
+                {
+                    orderItem.TotalPrice = checkoutItem.TotalPrice;
+                    orderItem.OrderId = order.Id; // Set OrderId after order is created
+                    order.UserId = user.Id;
+
+                    await _orderItemRepository.CreateOne(orderItem);
+                    Console.WriteLine($"================{orderItem}=======================");
+
+
+
+
+
+                }
             }
-            order.UserId = Guid.NewGuid();
-            order = await _orderRepository.CreateOne(order);
             return order;
+
+
+
 
 
 

@@ -35,8 +35,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             var deleteUser = _userRepository.FindOne(userId);
             if (deleteUser == null) return false;
-                _userRepository.DeleteOne(userId);
-                return true;
+            _userRepository.DeleteOne(userId);
+            return true;
         }
 
         public IEnumerable<UserReadDto> FindAll()

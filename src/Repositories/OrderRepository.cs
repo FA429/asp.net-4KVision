@@ -36,12 +36,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
         public async Task<Order> CreateOne(Order order)
         {
-            Console.WriteLine("======ORDER=======");
             await _order.AddAsync(order);
-            Console.WriteLine("======ORDER=======");
 
             _db.SaveChanges();
-            Console.WriteLine("======ORDER=======");
 
             return order;
 
