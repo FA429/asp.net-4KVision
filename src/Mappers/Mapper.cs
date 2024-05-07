@@ -4,16 +4,20 @@ using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
 {
-    // Add mapper class
     public class Mapper : Profile
     {
         public Mapper()
         {
             CreateMap<User, UserReadDto>(); // map it shape from user entity to user DTO
-            CreateMap<UserReadDto, User>();
             CreateMap<UserCreateDto, User>();
+
             CreateMap<CategoryCreateDto, Category>();
             CreateMap<Category, CategoryCreateDto>();
+            CreateMap<Category, CategoryReadDto>();
+            CreateMap<CategoryUpdateDto, Category>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcProperty) => srcProperty != null));
+
+
             CreateMap<OrderItemCreateDto, OrderItem>();// <from, to>
             CreateMap<OrderItem, OrderItemCreateDto>();
 
@@ -24,7 +28,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
             CreateMap<ProductUpdateDto, Product>();
 
             CreateMap<InventoryCreateDto, Inventory>();
-
+            CreateMap<Inventory, InventoryReadDto>();
         }
     }
 }
