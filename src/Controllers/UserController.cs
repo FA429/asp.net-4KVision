@@ -36,7 +36,7 @@ public class UserController : CustomBaseController
     {
         if (user != null)
         {
-            var createdUser = _userService.SignUp(user);
+            UserReadDto? createdUser = _userService.SignUp(user);
             return CreatedAtAction(nameof(SignUp), createdUser);
         }
         return BadRequest();
@@ -57,7 +57,7 @@ public class UserController : CustomBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult DeleteOne(Guid userId)
     {
-        var deleteUser = _userService.FindOne(userId);
+        UserReadDto? deleteUser = _userService.FindOne(userId);
         if (deleteUser == null) return NotFound();
         _userService.DeleteOne(userId);
         return NoContent();
@@ -67,7 +67,7 @@ public class UserController : CustomBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<UserReadDto?> UpdateOne(Guid userId, [FromBody] UserUpdateDto user)
     {
-        var isUser = _userService.FindOne(userId);
+        UserReadDto? isUser = _userService.FindOne(userId);
         if (isUser == null) return NotFound();
         return Accepted(_userService.UpdateOne(userId, user));
     }

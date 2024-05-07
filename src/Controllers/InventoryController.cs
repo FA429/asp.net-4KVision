@@ -48,7 +48,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 
         public ActionResult DeleteOne(Guid inventoryId)
         {
-            var deleteInventory = _inventoryService.FindOne(inventoryId);
+            InventoryReadDto? deleteInventory = _inventoryService.FindOne(inventoryId);
             if (deleteInventory == null) return NotFound();
             _inventoryService.DeleteOne(inventoryId);
             return NoContent();
@@ -59,7 +59,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<InventoryReadDto?> UpdateOne(Guid inventoryId, [FromBody] InventoryUpdateDto updateInventory)
         {
-            var findInventory = _inventoryService.FindOne(inventoryId);
+            InventoryReadDto? findInventory = _inventoryService.FindOne(inventoryId);
             if(findInventory == null) return NotFound();
             return Accepted(_inventoryService.UpdateOne(inventoryId, updateInventory));
         }

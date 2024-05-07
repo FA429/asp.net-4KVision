@@ -24,7 +24,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public User? DeleteOne(Guid userId)
         {
-            var deleteUser = FindOne(userId);
+            User? deleteUser = FindOne(userId);
             _users.Remove(deleteUser!);
             _databaseContext.SaveChanges();
             return deleteUser;
@@ -38,7 +38,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public User? FindOne(Guid userId)
         {
-            var findUser = _users.Find(userId);
+            User? findUser = _users.Find(userId);
             return findUser;    
         }
 
