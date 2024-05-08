@@ -75,4 +75,7 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseAuthentication();// Authentication first then Authorization
+app.UseAuthorization();
+
 app.Run();
