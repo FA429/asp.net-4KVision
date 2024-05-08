@@ -36,7 +36,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public string? Login(UserLogInDto user)
         {
-            IEnumerable<User>? users = _userRepository.FindAll(0,0);
+            IEnumerable<User>? users = _userRepository.FindAll(0, 0);
             User? isUser = users.FirstOrDefault(u => u.Email == user.Email);
             if (isUser == null) return null;
             byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
@@ -49,6 +49,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 new Claim(ClaimTypes.Name, isUser.Name),
                 new Claim(ClaimTypes.Role, isUser.Role.ToString()),
                 new Claim(ClaimTypes.Email, isUser.Email),
+                new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SigningKey"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -74,7 +75,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public IEnumerable<UserReadDto> FindAll(int limit, int offset)
         {
-            var users = _userRepository.FindAll(limit,offset);
+            var users = _userRepository.FindAll(limit, offset);
             var usersRead = users.Select(user => _mapper.Map<UserReadDto>(user));
             return usersRead;
 

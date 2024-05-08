@@ -4,8 +4,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.DTOs
     {
         public Guid InventoryId { get; set; }
         public Guid OrderId { get; set; }
-        public string Quantity { get; set; }
-        public string TotalPrice { get; set; }
+        public int Quantity { get; set; }
+        public int TotalPrice { get; set; }
 
     }
 }

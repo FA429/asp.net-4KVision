@@ -58,9 +58,8 @@ namespace Backend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
                         .HasColumnName("quantity");
 
                     b.Property<string>("Size")
@@ -85,7 +84,7 @@ namespace Backend.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("date");
 
                     b.Property<Guid>("UserId")
@@ -116,14 +115,12 @@ namespace Backend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("order_id");
 
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
                         .HasColumnName("quantity");
 
-                    b.Property<string>("TotalPrice")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("integer")
                         .HasColumnName("total_price");
 
                     b.HasKey("Id")
