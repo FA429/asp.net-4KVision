@@ -5,7 +5,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 
     public interface IUserRepository
     {
-    public IEnumerable<User> FindAll();
+    public IEnumerable<User> FindAll(int limit, int offset);
     public User? FindOne(Guid userId);
     public User CreateOne(User user);
     public User? DeleteOne(Guid userId);
