@@ -1,5 +1,7 @@
 
 
+using System.ComponentModel.DataAnnotations;
+
 namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
 {
     public class Order
@@ -8,7 +10,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
         public Guid UserId { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public Guid ProductId { get; set; }
+        [Required]
+
         public string Size { get; set; }
+        [Required]
         public string Color { get; set; }
         public IEnumerable<OrderItem>? OrderItem { get; set; }
 

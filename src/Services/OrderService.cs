@@ -53,18 +53,19 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             Console.WriteLine("================================");
 
             var order = new Order();
+            
+                var orderItem = new OrderItem();
+                var inventory = new Inventory();
+                var user = new User();
             order = await _orderRepository.CreateOne(order);
 
             foreach (var checkoutItem in checkoutOrderItems)
             {
-                var orderItem = new OrderItem();
-                var inventory = new Inventory();
-                var user = new User();
 
                 var findInventory = _inventoryRepository.FindAll().FirstOrDefault((inv) => inv.Size == checkoutItem.Size && inv.Color == checkoutItem.Color && inv.ProductId == checkoutItem.ProductId);
-                orderItem.InventoryId = findInventory.Id;
+                orderItem.InventoryId = findInventory!.Id;
                 
-                Console.WriteLine($"================{findInventory}=======================");
+                Console.WriteLine($"================{checkoutItem.Size}{checkoutItem.Color}{checkoutItem.ProductId}=======================");
                 orderItem.Quantity = checkoutItem.Quantity;
                 if (inventory.Quantity >= checkoutItem.Quantity)
                 {
