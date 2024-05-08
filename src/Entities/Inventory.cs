@@ -8,7 +8,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
         [Required]
         public Guid ProductId { get; set; } // Foreign key
         [Required]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         [Required]
         public string Color { get; set; }
         [Required]

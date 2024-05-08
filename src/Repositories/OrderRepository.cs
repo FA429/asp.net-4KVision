@@ -28,36 +28,20 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         {
             var findOrder = _order.Find(OrderId);
             return findOrder;
-
         }
-        public Order CreateOne([FromBody] Order order)
+        public Order CreateOne(Order order)
         {
             _order.Add(order);
             _db.SaveChanges();
-
             return order;
-
         }
-        // public Order? DeleteOne(Guid orderId)
-        // {
-
-        //     var deleteOrder = _order.Find((order) => order.Id == OrderId);
-        //         _order.Remove(deleteOrder!);
-        //         return deleteOrder;
-
-        //     }
         public Order? DeleteOne(Guid orderId)
         {
             var deleteOrder = FindOne(orderId);
             _order.Remove(deleteOrder!);
             _db.SaveChanges();
-
             return deleteOrder;
         }
-
-
-
     }
-
 }
 
