@@ -14,7 +14,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         }
         [HttpGet] //Action methods GET
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<ProductReadDto>> FindAll([FromQuery(Name =  "limit")]int limit, [FromQuery(Name = "offset")]int offset)
+        public ActionResult<IEnumerable<ProductReadDto>> FindAll([FromQuery(Name = "limit")] int limit, [FromQuery(Name = "offset")] int offset)
         {
 
             return Ok(_productService.FindAll(limit, offset));
@@ -26,9 +26,24 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         public ActionResult<ProductReadDto?> FindOne(Guid productId)
         {
             ProductReadDto? foundProduct = _productService.FindOne(productId);
-            if(foundProduct is null) return NoContent();
+            if (foundProduct is null) return NoContent();
             return Ok(foundProduct);
+
         }
+        [HttpGet("search")] //Action method for searching products by keyword
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<ProductReadDto>> Search(string keyword)
+        {
+            List<ProductReadDto> foundProducts = _productService.Search(keyword);
+            if (foundProducts.Count == 0)
+                return NotFound();
+
+            return Ok(foundProducts);
+        }
+
+
+
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]

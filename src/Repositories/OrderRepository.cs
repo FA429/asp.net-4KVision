@@ -32,28 +32,21 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         {
             var findOrder = _order.Find(OrderId);
             return findOrder;
-
         }
         public Order CreateOne(Order order)
         {
             _order.AddAsync(order);
 
             _db.SaveChanges();
-
             return order;
-
         }
-
-
         public Order? DeleteOne(Guid orderId)
         {
             var deleteOrder = FindOne(orderId);
             _order.Remove(deleteOrder!);
             _db.SaveChanges();
-
             return deleteOrder;
         }
     }
-
 }
 

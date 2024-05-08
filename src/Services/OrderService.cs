@@ -1,11 +1,4 @@
-
-
-using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
-using sda_onsite_2_csharp_backend_teamwork.src.Databases;
 using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Repositories;
@@ -15,25 +8,19 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
     public class OrderServices : IOrderService
     {
         private IOrderRepository _orderRepository;
-        private IOrderItemRepository _orderItemRepository;
-        private IInventoryRepository _inventoryRepository;
-        private IProductRepository _productRepository;
+        private IInventoryService _inventoryService;
+        private IOrderItemService _orderItemService;
+        private IProductService _productService;
         private IConfiguration _config;
-        private IMapper _mapper;
-        private IUserRepository _userRepository;
 
 
-
-        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IMapper mapper, IOrderItemRepository orderItemRepository, IInventoryRepository inventoryRepository, IProductRepository productRepository, IUserRepository userRepository)
+        public OrderServices(IOrderRepository orderRepository, IConfiguration config, IInventoryService inventoryService, IOrderItemService orderItemService, IProductService productService)
         {
             _orderRepository = orderRepository;
             _config = config;
-            _mapper = mapper;
-            _orderItemRepository = orderItemRepository;
-            _inventoryRepository = inventoryRepository;
-            _productRepository = productRepository;
-            _userRepository = userRepository;
-
+            _inventoryService = inventoryService;
+            _orderItemService = orderItemService;
+            _productService = productService;
         }
 
         public IEnumerable<Order> FindAll()
@@ -42,67 +29,41 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
-        public Order? FindOne(Guid OrderId)
+        public Order? FindOne(Guid orderId)
         {
-            return _orderRepository.FindOne(OrderId); ;
-
+            Order? order = _orderRepository.FindOne(orderId);
+            return order;
         }
+        public Order CreateOne(List<CheckoutDto> checkoutOrder, string userId)
+        {
+            Console.WriteLine($"USER ID = {userId}");
+            Order order = new();
+            order.UserId = new Guid(userId);
+            _orderRepository.CreateOne(order);
 
-        // public async Task<Order> CreateOne(List<CheckoutDto> checkoutOrderItems)
-        // {
-        //     Console.WriteLine("================================");
-
-        //     var order = new Order();
-
-        //     var orderItem = new OrderItem();
-        //     var user = new User();
-        //     order = await _orderRepository.CreateOne(order);
-
-        //     // foreach (var checkoutItem in checkoutOrderItems)
-        //     // {
-
-        //     //     // var findInventory = _inventoryRepository.FindAll().FirstOrDefault((inv) => inv.Size == checkoutItem.Size && inv.Color == checkoutItem.Color && inv.ProductId == checkoutItem.ProductId);
-        //     //     // orderItem.InventoryId = findInventory!.Id;                
-        //     //     Console.WriteLine($"================{checkoutItem.Size}{checkoutItem.Color}{checkoutItem.ProductId}=======================");
-        //     //     orderItem.Quantity = checkoutItem.Quantity;
-        //     //     // if (inventory.Quantity >= checkoutItem.Quantity)
-        //     //     // {
-        //     //     //     orderItem.TotalPrice = checkoutItem.TotalPrice;
-        //     //     //     orderItem.OrderId = order.Id; // Set OrderId after order is created
-        //     //     //     order.UserId = user.Id;
-
-        //     //     //     await _orderItemRepository.CreateOne(orderItem);
-        //     //     //     Console.WriteLine($"================{orderItem}=======================");
-        //     //     // }
-        //     // }
-        //     return order;
-
-        //}
-
-
-
-
-        /*
-                  1. create order
-                  2. loop thro the checkedoutOItems and create OrderItem
-                  3. done.
-                  */
-
-
+            foreach (var checkedItem in checkoutOrder)
+            {
+                var product = _productService.FindOne(checkedItem.ProductId);
+                var inventory = _inventoryService.FindAll().FirstOrDefault(inv => inv.ProductId == checkedItem.ProductId && inv.Color == checkedItem.Color && inv.Size == checkedItem.Size);
+                if (inventory is null) continue;
+                if (checkedItem.Quantity >= inventory.Quantity) continue;
+                OrderItemCreateDto orderItem = new()
+                    {
+                        OrderId = order.Id,
+                        InventoryId = inventory.Id,
+                        Quantity = checkedItem.Quantity,
+                        TotalPrice = checkedItem.Quantity * product.Price
+                    };
+                    _orderItemService.CreateOne(orderItem);
+            }
+            return order;
+        }
 
         public Order? DeleteOne(Guid OrderId)
         {
             var deleteOrder = _orderRepository.FindOne(OrderId);
-            if (deleteOrder == null)
-            {
-                return null;
-            }
-            else
-            {
-                return _orderRepository.DeleteOne(OrderId);
-            }
-
-
+            if(deleteOrder == null) return null;
+            return _orderRepository.DeleteOne(OrderId);
         }
     }
 }
