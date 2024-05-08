@@ -24,21 +24,25 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public User? DeleteOne(Guid userId)
         {
-            var deleteUser = FindOne(userId);
+            User? deleteUser = FindOne(userId);
             _users.Remove(deleteUser!);
             _databaseContext.SaveChanges();
             return deleteUser;
         }
 
-        public IEnumerable<User> FindAll()
+        public IEnumerable<User> FindAll(int limit, int offset)
         {
-            return _users;
-            
+            if (limit == 0 & offset == 0)
+            {
+                return _users;
+            }
+            return _users.Skip(offset).Take(limit);
+
         }
 
         public User? FindOne(Guid userId)
         {
-            var findUser = _users.Find(userId);
+            User? findUser = _users.Find(userId);
             return findUser;    
         }
 

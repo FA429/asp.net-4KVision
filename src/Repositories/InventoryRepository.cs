@@ -25,7 +25,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public void DeleteOne(Guid inventoryId)
         {
-            var deletedInventory = FindOne(inventoryId);
+            Inventory? deletedInventory = FindOne(inventoryId);
             _inventories.Remove(deletedInventory!);
             _databaseContext.SaveChanges();
         }
@@ -37,7 +37,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
 
         public Inventory? FindOne(Guid inventoryId)
         {
-            var findInventory = _inventories.Find(inventoryId);
+            Inventory? findInventory = _inventories.Find(inventoryId);
             return findInventory;
         }
 

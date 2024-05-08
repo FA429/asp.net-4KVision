@@ -45,7 +45,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             IEnumerable<Inventory> inventories = _inventoryRepository.FindAll();
             Inventory? isFound = inventories.FirstOrDefault(inventory => inventory.Id == inventoryId);
             if (isFound == null) return null;
-            var inventory =_inventoryRepository.FindOne(inventoryId);
+            Inventory? inventory =_inventoryRepository.FindOne(inventoryId);
             return _mapper.Map<InventoryReadDto>(inventory);
         }
 
