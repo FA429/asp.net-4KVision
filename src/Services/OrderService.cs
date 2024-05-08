@@ -48,48 +48,36 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         }
 
-        public async Task<Order> CreateOne(List<CheckoutDto> checkoutOrderItems)
-        {
-            Console.WriteLine("================================");
+        // public async Task<Order> CreateOne(List<CheckoutDto> checkoutOrderItems)
+        // {
+        //     Console.WriteLine("================================");
 
-            var order = new Order();
-            
-                var orderItem = new OrderItem();
-                var inventory = new Inventory();
-                var user = new User();
-            order = await _orderRepository.CreateOne(order);
+        //     var order = new Order();
 
-            foreach (var checkoutItem in checkoutOrderItems)
-            {
+        //     var orderItem = new OrderItem();
+        //     var user = new User();
+        //     order = await _orderRepository.CreateOne(order);
 
-                var findInventory = _inventoryRepository.FindAll().FirstOrDefault((inv) => inv.Size == checkoutItem.Size && inv.Color == checkoutItem.Color && inv.ProductId == checkoutItem.ProductId);
-                orderItem.InventoryId = findInventory!.Id;
-                
-                Console.WriteLine($"================{checkoutItem.Size}{checkoutItem.Color}{checkoutItem.ProductId}=======================");
-                orderItem.Quantity = checkoutItem.Quantity;
-                if (inventory.Quantity >= checkoutItem.Quantity)
-                {
-                    orderItem.TotalPrice = checkoutItem.TotalPrice;
-                    orderItem.OrderId = order.Id; // Set OrderId after order is created
-                    order.UserId = user.Id;
+        //     // foreach (var checkoutItem in checkoutOrderItems)
+        //     // {
 
-                    await _orderItemRepository.CreateOne(orderItem);
-                    Console.WriteLine($"================{orderItem}=======================");
+        //     //     // var findInventory = _inventoryRepository.FindAll().FirstOrDefault((inv) => inv.Size == checkoutItem.Size && inv.Color == checkoutItem.Color && inv.ProductId == checkoutItem.ProductId);
+        //     //     // orderItem.InventoryId = findInventory!.Id;                
+        //     //     Console.WriteLine($"================{checkoutItem.Size}{checkoutItem.Color}{checkoutItem.ProductId}=======================");
+        //     //     orderItem.Quantity = checkoutItem.Quantity;
+        //     //     // if (inventory.Quantity >= checkoutItem.Quantity)
+        //     //     // {
+        //     //     //     orderItem.TotalPrice = checkoutItem.TotalPrice;
+        //     //     //     orderItem.OrderId = order.Id; // Set OrderId after order is created
+        //     //     //     order.UserId = user.Id;
 
+        //     //     //     await _orderItemRepository.CreateOne(orderItem);
+        //     //     //     Console.WriteLine($"================{orderItem}=======================");
+        //     //     // }
+        //     // }
+        //     return order;
 
-
-
-
-                }
-            }
-            return order;
-
-
-
-
-
-
-        }
+        //}
 
 
 

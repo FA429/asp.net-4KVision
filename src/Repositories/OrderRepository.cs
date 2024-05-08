@@ -34,9 +34,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             return findOrder;
 
         }
-        public async Task<Order> CreateOne(Order order)
+        public Order CreateOne(Order order)
         {
-            await _order.AddAsync(order);
+            _order.AddAsync(order);
 
             _db.SaveChanges();
 

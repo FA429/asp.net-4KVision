@@ -10,8 +10,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.DTOs
         public DateTime Date { get; set; } = DateTime.Now;
 
         public double TotalPrice { get; set; }
-        public string Color { get; set; }
-        public string Size { get; set; }
+        public string? Color { get; set; }
+        public string? Size { get; set; }
 
     }
 }

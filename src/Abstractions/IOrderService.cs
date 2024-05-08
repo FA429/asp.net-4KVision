@@ -11,7 +11,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Abstractions
     {
         public IEnumerable<Order> FindAll();
         public Order? FindOne(Guid OrderId);
-        public Task<Order> CreateOne(List<CheckoutDto> OrderItem);
+        public Order CreateOne(List<CheckoutDto> OrderItem);
         public Order? DeleteOne(Guid OrderId);
 
     }
