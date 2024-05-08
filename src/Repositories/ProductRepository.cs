@@ -30,7 +30,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         }
         public IEnumerable<Product> FindAll(int limit, int offset)
         {
-            if(limit == 0 & offset ==0 ){
+            if (limit == 0 & offset == 0)
+            {
                 return _products;
             }
             return _products.Skip(offset).Take(limit);
@@ -39,6 +40,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
         {
             var findProduct = _products.Find(productId);
             return findProduct;
+        }
+        public List<Product> Search(string keyword)
+        {
+            return _databaseContext.Products
+                    .Where(p => p.Name.Contains(keyword))
+                    .ToList();
         }
         public Product UpdateOne(Product UpdateProduct)
         {
@@ -50,4 +57,3 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
     }
 }
 
-        

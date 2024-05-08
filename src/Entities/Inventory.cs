@@ -6,13 +6,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
     {
         public Guid Id { get; set; }
         [Required]
-        public Guid ProductId { get; set; }
+        public Guid ProductId { get; set; } // Foreign key
         [Required]
         public int Quantity { get; set; }
         [Required]
         public string Color { get; set; }
         [Required]
         public string Size { get; set; }
-        public List<OrderItem>? OrderItem { get; set; }
+        public List<OrderItem>? OrderItem { get; set; } // Navigation Property
     }
 }

@@ -10,20 +10,17 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         private IProductRepository _productRepository;
         private IConfiguration _config;
         private IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IConfiguration config , IMapper mapper)
+        public ProductService(IProductRepository productRepository, IConfiguration config, IMapper mapper)
         {
             _productRepository = productRepository;
             _config = config;
-            _mapper =mapper;
+            _mapper = mapper;
         }
         public ProductReadDto CreateOne(ProductCreateDto product)
         {
             var mappedOrderItem = _mapper.Map<Product>(product);
-            _productRepository.CreateOne(mappedOrderItem);
-
-            var newProduct = _mapper.Map<ProductReadDto>(product);
-
-
+            var creatProduct = _productRepository.CreateOne(mappedOrderItem);
+            var newProduct = _mapper.Map<ProductReadDto>(creatProduct);
             return newProduct;
         }
         public bool? DeleteOne(Guid productId)
@@ -38,17 +35,38 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 return false;
             }
         }
-        public IEnumerable<ProductReadDto> FindAll(int limit , int offset)
+        public IEnumerable<ProductReadDto> FindAll(int limit, int offset)
         {
             IEnumerable<Product> products = _productRepository.FindAll(limit, offset);
             return products.Select(_mapper.Map<ProductReadDto>);
-            
+
         }
         public ProductReadDto FindOne(Guid productId)
         {
             Product? products = _productRepository.FindOne(productId);
             return _mapper.Map<ProductReadDto>(products);
         }
+
+        public List<ProductReadDto> Search(string keyword)
+        {
+            // Assuming _context is your DbContext and Products is your DbSet<Product>
+            var foundProducts = _productRepository.Search(keyword)
+            .Where(p => p.Name.Contains(keyword))
+            .Select(p => new ProductReadDto
+            {
+                // Map your Product entity to ProductReadDto
+                Id = p.Id,
+                CategoryId = p.CategoryId,
+                Name = p.Name,
+                Price = p.Price
+                // Map other properties as needed
+            })
+            .ToList();
+            return foundProducts;
+        }
+
+
+
         public ProductReadDto UpdateOne(Guid productId, ProductUpdateDto updatedProduct)
         {
             var product = _productRepository.FindOne(productId);
@@ -66,3 +84,4 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         }
     }
 }
+
