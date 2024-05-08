@@ -13,10 +13,11 @@ public class UserController : CustomBaseController
         _userService = userService;
     }
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     // [Authorize(Roles = "Admin")]
-    public IEnumerable<UserReadDto> FindAll()
+    public ActionResult<IEnumerable<UserReadDto>> FindAll([FromQuery(Name = "limit")] int limit, [FromQuery(Name = "offset")] int offset)
     {
-        return _userService.FindAll();
+        return Ok(_userService.FindAll(limit, offset));
     }
 
     [HttpGet("{userId}")]
@@ -24,7 +25,7 @@ public class UserController : CustomBaseController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public ActionResult<UserReadDto?> FindOne(Guid userId)
     {
-        IEnumerable<UserReadDto>? users = _userService.FindAll();
+        IEnumerable<UserReadDto>? users = _userService.FindAll(0,0);
         UserReadDto? user = users.FirstOrDefault(u => u.Id == userId);
         if (user == null) return NoContent();
         return Ok(_userService.FindOne(userId));
@@ -36,7 +37,7 @@ public class UserController : CustomBaseController
     {
         if (user != null)
         {
-            var createdUser = _userService.SignUp(user);
+            UserReadDto? createdUser = _userService.SignUp(user);
             return CreatedAtAction(nameof(SignUp), createdUser);
         }
         return BadRequest();
@@ -57,7 +58,7 @@ public class UserController : CustomBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult DeleteOne(Guid userId)
     {
-        var deleteUser = _userService.FindOne(userId);
+        UserReadDto? deleteUser = _userService.FindOne(userId);
         if (deleteUser == null) return NotFound();
         _userService.DeleteOne(userId);
         return NoContent();
@@ -67,7 +68,7 @@ public class UserController : CustomBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<UserReadDto?> UpdateOne(Guid userId, [FromBody] UserUpdateDto user)
     {
-        var isUser = _userService.FindOne(userId);
+        UserReadDto? isUser = _userService.FindOne(userId);
         if (isUser == null) return NotFound();
         return Accepted(_userService.UpdateOne(userId, user));
     }

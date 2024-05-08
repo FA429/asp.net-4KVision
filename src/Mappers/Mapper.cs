@@ -12,14 +12,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services.Mappers
             CreateMap<UserCreateDto, User>();
 
             CreateMap<CategoryCreateDto, Category>();
-            CreateMap<Category, CategoryCreateDto>();
             CreateMap<Category, CategoryReadDto>();
             CreateMap<CategoryUpdateDto, Category>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcProperty) => srcProperty != null));
 
 
             CreateMap<OrderItemCreateDto, OrderItem>();// <from, to>
-            CreateMap<OrderItem, OrderItemCreateDto>();
 
             CreateMap<ProductCreateDto, Product>();
             CreateMap<Product, ProductReadDto>();
