@@ -37,13 +37,13 @@ In this level, the application includes the following features:
 4. [x] Key: When establishing relationships, remember to create a key in your ERD to explain the notation used for relationships.
 5. [x] According to the ERD above, create the entities, and build the database with Entity Framework Core.
 6. [x] Create basic CRUD operations for each endpoint.
-7. Use authentication and role-based authorization
+7. [x] Use authentication and role-based authorization
 
 ### Level 2: Additional Requirements
 
 In addition to the basic requirements, the application enhances its functionality with the following features:
 
-1. [ ] Include pagination functionality to the method getting all products.
+1. [x] Include pagination functionality to the method getting all products.
 2. [ ] Implement search functionality to allow users to search for specific products based on keywords or specific fields (e.g., by title).
 3. [ ] Add validation checks to ensure the data meets certain criteria before executing the actions.
 
