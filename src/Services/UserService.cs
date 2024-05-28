@@ -25,7 +25,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public UserReadDto SignUp(UserCreateDto user)
         {
-            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
+            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt_Pepper"]!);
             PasswordUtils.HashPassword(user.Password, out string hashedPassword, pepper);
             user.Password = hashedPassword;
             User mappedUser = _mapper.Map<User>(user);
@@ -39,7 +39,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             IEnumerable<User>? users = _userRepository.FindAll(0, 0);
             User? isUser = users.FirstOrDefault(u => u.Email == user.Email);
             if (isUser == null) return null;
-            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt:Pepper"]!);
+            byte[] pepper = Encoding.UTF8.GetBytes(_config["Jwt_Pepper"]!);
             bool isCorrect = PasswordUtils.VerifyPassword(user.Password, isUser.Password, pepper);
             if (!isCorrect) return null;
 
@@ -51,12 +51,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 new Claim(ClaimTypes.Email, isUser.Email),
                 new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SigningKey"]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt_SigningKey"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"]!,
-                audience: _config["Jwt:Audience"]!,
+                issuer: _config["Jwt_Issuer"]!,
+                audience: _config["Jwt_Audience"]!,
                 claims: claims,
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: creds
