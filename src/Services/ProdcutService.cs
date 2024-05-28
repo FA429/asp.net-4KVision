@@ -35,9 +35,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 return false;
             }
         }
-        public IEnumerable<ProductReadDto> FindAll(int limit, int offset)
+        public IEnumerable<ProductReadDto> FindAll(string? searchKeyword)
         {
-            IEnumerable<Product> products = _productRepository.FindAll(limit, offset);
+            IEnumerable<Product> products = _productRepository.FindAll(searchKeyword);
             return products.Select(_mapper.Map<ProductReadDto>);
 
         }
@@ -45,24 +45,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             Product? products = _productRepository.FindOne(productId);
             return _mapper.Map<ProductReadDto>(products);
-        }
-
-        public List<ProductReadDto> Search(string keyword)
-        {
-            // Assuming _context is your DbContext and Products is your DbSet<Product>
-            var foundProducts = _productRepository.Search(keyword)
-            .Where(p => p.Name.Contains(keyword))
-            .Select(p => new ProductReadDto
-            {
-                // Map your Product entity to ProductReadDto
-                Id = p.Id,
-                CategoryId = p.CategoryId,
-                Name = p.Name,
-                Price = p.Price
-                // Map other properties as needed
-            })
-            .ToList();
-            return foundProducts;
         }
 
 
@@ -74,8 +56,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             if (product != null)
             {
                 product.Name = updatedProduct.Name;
-                product.CategoryId = updatedProduct.CategoryId;
                 product.Price = updatedProduct.Price;
+                product.Description = updatedProduct.Description;
+                product.Image = updatedProduct.Image;
+                product.Quantity = updatedProduct.Quantity;
                 _productRepository.UpdateOne(product);
 
                 return _mapper.Map<ProductReadDto>(product);

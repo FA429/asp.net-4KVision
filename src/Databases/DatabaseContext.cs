@@ -15,22 +15,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Databases
         public DbSet<Inventory> Inventories { get; set; }
         private IConfiguration _config;
 
-        public DatabaseContext(IConfiguration config)
-        {
-            _config = config;
+      public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
-        }
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-            var dataSourceBuilder = new NpgsqlDataSourceBuilder(@$"Host={_config["Db:Host"]};Username={_config["Db:Username"]};Database={_config["Db:Database"]};Password={_config["Db:Password"]}");
-            dataSourceBuilder.MapEnum<Role>();
-            var dataSource = dataSourceBuilder.Build();
-
-            optionsBuilder.UseNpgsql(dataSource).UseSnakeCaseNamingConvention();
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -43,16 +43,16 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
             foreach (var checkedItem in checkoutOrder)
             {
-                var product = _productService.FindOne(checkedItem.ProductId);
-                var inventory = _inventoryService.FindAll().FirstOrDefault(inv => inv.ProductId == checkedItem.ProductId && inv.Color == checkedItem.Color && inv.Size == checkedItem.Size);
-                if (inventory is null) continue;
-                if (checkedItem.Quantity >= inventory.Quantity) continue;
+                // var product = _productService.FindOne(checkedItem.ProductId);
+                // var inventory = _inventoryService.FindAll().FirstOrDefault(inv => inv.ProductId == checkedItem.ProductId );
+                // if (inventory is null) continue;
+                // if (checkedItem.Quantity >= inventory.Quantity) continue;
                 OrderItemCreateDto orderItem = new()
                     {
                         OrderId = order.Id,
-                        InventoryId = inventory.Id,
+                        // InventoryId = inventory.Id,
                         Quantity = checkedItem.Quantity,
-                        TotalPrice = checkedItem.Quantity * product.Price
+                        // TotalPrice = checkedItem.Quantity * product.Price
                     };
                     _orderItemService.CreateOne(orderItem);
             }

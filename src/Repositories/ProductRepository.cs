@@ -28,25 +28,29 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             _databaseContext.SaveChanges();
             return true;
         }
-        public IEnumerable<Product> FindAll(int limit, int offset)
+        public IEnumerable<Product> FindAll( string? searchKeyword)
         {
-            if (limit == 0 & offset == 0)
+            if ( searchKeyword is null)
             {
                 return _products;
             }
-            return _products.Skip(offset).Take(limit);
+            if (searchKeyword is not null)
+            {
+                Console.WriteLine($"Search key word {searchKeyword}");
+
+                return _products
+                        .Where(p => p.Name.ToLower().Contains(searchKeyword.ToLower()));
+                        
+                
+            }
+            return _products;
         }
         public Product? FindOne(Guid productId)
         {
             var findProduct = _products.Find(productId);
             return findProduct;
         }
-        public List<Product> Search(string keyword)
-        {
-            return _databaseContext.Products
-                    .Where(p => p.Name.Contains(keyword))
-                    .ToList();
-        }
+      
         public Product UpdateOne(Product UpdateProduct)
         {
             _databaseContext.Products.Update(UpdateProduct);
